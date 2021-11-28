@@ -117,12 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="SendMessageButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="SendMessageButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>397, 517</value>
   </data>
   <data name="SendMessageButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 200</value>
+    <value>228, 60</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="SendMessageButton.TabIndex" type="System.Int32, mscorlib">
@@ -141,7 +145,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;SendMessageButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="MessageTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>29, 517</value>
@@ -149,7 +153,6 @@
   <data name="MessageTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MessageTextBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
   </data>
@@ -169,13 +172,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MessageTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="MessagesFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 47</value>
+    <value>29, 24</value>
   </data>
   <data name="MessagesFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>347, 420</value>
+    <value>347, 473</value>
   </data>
   <data name="MessagesFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -190,274 +193,43 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MessagesFlowLayoutPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBoxReadOnly.Name" xml:space="preserve">
-    <value>DestinationIPTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBox.Name" xml:space="preserve">
-    <value>DestinationIPTextBox</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBox.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBoxReadOnly.Name" xml:space="preserve">
-    <value>DestinationPortTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBox.Name" xml:space="preserve">
-    <value>DestinationPortTextBox</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBox.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;ConnectButton.Name" xml:space="preserve">
-    <value>ConnectButton</value>
+  <data name="ConnectModeComboBox.Items" xml:space="preserve">
+    <value>一对一辅导</value>
   </data>
-  <data name="&gt;&gt;ConnectButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ConnectModeComboBox.Items1" xml:space="preserve">
+    <value>多人运动</value>
   </data>
-  <data name="&gt;&gt;ConnectButton.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+  <data name="ConnectModeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="&gt;&gt;ConnectButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="ConnectModeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 28</value>
   </data>
-  <data name="&gt;&gt;LocalConfigTextBoxReadOnly.Name" xml:space="preserve">
-    <value>LocalConfigTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;LocalConfigTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LocalConfigTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;LocalConfigTextBoxReadOnly.ZOrder" xml:space="preserve">
+  <data name="ConnectModeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.Name" xml:space="preserve">
-    <value>LocalConfigIPTextBoxReadOnly</value>
+  <data name="&gt;&gt;ConnectModeComboBox.Name" xml:space="preserve">
+    <value>ConnectModeComboBox</value>
   </data>
-  <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;ConnectModeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+  <data name="&gt;&gt;ConnectModeComboBox.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;LocalIPTextBoxReadOnly.Name" xml:space="preserve">
-    <value>LocalIPTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;LocalIPTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LocalIPTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;LocalIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.Name" xml:space="preserve">
-    <value>LocalConfigPortTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;LocalPortTextBoxReadOnly.Name" xml:space="preserve">
-    <value>LocalPortTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;LocalPortTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LocalPortTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;LocalPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;GapTextBoxReadOnly.Name" xml:space="preserve">
-    <value>GapTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;GapTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GapTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;GapTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Name" xml:space="preserve">
-    <value>ConnectStatusTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Name" xml:space="preserve">
-    <value>ConnectLogTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="IPSettingsFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>397, 47</value>
-  </data>
-  <data name="IPSettingsFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 419</value>
-  </data>
-  <data name="IPSettingsFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;IPSettingsFlowLayoutPanel.Name" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;IPSettingsFlowLayoutPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;IPSettingsFlowLayoutPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;IPSettingsFlowLayoutPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ConnectModeComboBox.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="DestinationIPTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 32</value>
-  </data>
-  <data name="DestinationIPTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="DestinationIPTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 30</value>
-  </data>
-  <data name="DestinationIPTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="DestinationIPTextBox.Text" xml:space="preserve">
-    <value>255.255.255.255</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBox.Name" xml:space="preserve">
-    <value>DestinationIPTextBox</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBox.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;DestinationIPTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="DestinationPortTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 97</value>
-  </data>
-  <data name="DestinationPortTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="DestinationPortTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 30</value>
-  </data>
-  <data name="DestinationPortTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="DestinationPortTextBox.Text" xml:space="preserve">
-    <value>65535</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBox.Name" xml:space="preserve">
-    <value>DestinationPortTextBox</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBox.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;DestinationPortTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="ConnectButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ConnectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 133</value>
-  </data>
-  <data name="ConnectButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 43</value>
-  </data>
-  <data name="ConnectButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="ConnectButton.Text" xml:space="preserve">
-    <value>连接</value>
-  </data>
-  <data name="&gt;&gt;ConnectButton.Name" xml:space="preserve">
-    <value>ConnectButton</value>
-  </data>
-  <data name="&gt;&gt;ConnectButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConnectButton.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;ConnectButton.ZOrder" xml:space="preserve">
-    <value>4</value>
   </data>
   <data name="DestinationIPTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>3, 37</value>
   </data>
   <data name="DestinationIPTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="DestinationIPTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>225, 23</value>
   </data>
   <data name="DestinationIPTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -472,19 +244,46 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;DestinationIPTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+    <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;DestinationIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="DestinationIPTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 66</value>
+  </data>
+  <data name="DestinationIPTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="DestinationIPTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 30</value>
+  </data>
+  <data name="DestinationIPTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="DestinationIPTextBox.Text" xml:space="preserve">
+    <value>192.168.43.167</value>
+  </data>
+  <data name="&gt;&gt;DestinationIPTextBox.Name" xml:space="preserve">
+    <value>DestinationIPTextBox</value>
+  </data>
+  <data name="&gt;&gt;DestinationIPTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DestinationIPTextBox.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;DestinationIPTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="DestinationPortTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 68</value>
+    <value>3, 102</value>
   </data>
   <data name="DestinationPortTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="DestinationPortTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>225, 23</value>
   </data>
   <data name="DestinationPortTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -499,46 +298,100 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;DestinationPortTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+    <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;DestinationPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
-  <data name="LocalConfigTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 182</value>
+  <data name="DestinationPortTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 131</value>
   </data>
-  <data name="LocalConfigTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
+  <data name="DestinationPortTextBox.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="LocalConfigTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+  <data name="DestinationPortTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 30</value>
   </data>
-  <data name="LocalConfigTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="DestinationPortTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="LocalConfigTextBoxReadOnly.Text" xml:space="preserve">
-    <value>本机配置信息</value>
+  <data name="DestinationPortTextBox.Text" xml:space="preserve">
+    <value>60023</value>
   </data>
-  <data name="&gt;&gt;LocalConfigTextBoxReadOnly.Name" xml:space="preserve">
-    <value>LocalConfigTextBoxReadOnly</value>
+  <data name="&gt;&gt;DestinationPortTextBox.Name" xml:space="preserve">
+    <value>DestinationPortTextBox</value>
   </data>
-  <data name="&gt;&gt;LocalConfigTextBoxReadOnly.Type" xml:space="preserve">
+  <data name="&gt;&gt;DestinationPortTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;LocalConfigTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+  <data name="&gt;&gt;DestinationPortTextBox.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;LocalConfigTextBoxReadOnly.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DestinationPortTextBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="ConnectButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ConnectButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 167</value>
+  </data>
+  <data name="ConnectButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 40</value>
+  </data>
+  <data name="ConnectButton.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
+  <data name="ConnectButton.Text" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="&gt;&gt;ConnectButton.Name" xml:space="preserve">
+    <value>ConnectButton</value>
+  </data>
+  <data name="&gt;&gt;ConnectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConnectButton.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ConnectButton.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="DisConnectButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DisConnectButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 213</value>
+  </data>
+  <data name="DisConnectButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 40</value>
+  </data>
+  <data name="DisConnectButton.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="DisConnectButton.Text" xml:space="preserve">
+    <value>断开连接</value>
+  </data>
+  <data name="&gt;&gt;DisConnectButton.Name" xml:space="preserve">
+    <value>DisConnectButton</value>
+  </data>
+  <data name="&gt;&gt;DisConnectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisConnectButton.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;DisConnectButton.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="LocalConfigIPTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 211</value>
+    <value>3, 259</value>
   </data>
   <data name="LocalConfigIPTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="LocalConfigIPTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>225, 23</value>
   </data>
   <data name="LocalConfigIPTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -553,19 +406,19 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+    <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="LocalIPTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 240</value>
+    <value>3, 288</value>
   </data>
   <data name="LocalIPTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="LocalIPTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>225, 23</value>
   </data>
   <data name="LocalIPTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -580,19 +433,19 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;LocalIPTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+    <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;LocalIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="LocalConfigPortTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 269</value>
+    <value>3, 317</value>
   </data>
   <data name="LocalConfigPortTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="LocalConfigPortTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>225, 23</value>
   </data>
   <data name="LocalConfigPortTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -607,19 +460,19 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+    <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="LocalPortTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 298</value>
+    <value>3, 346</value>
   </data>
   <data name="LocalPortTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="LocalPortTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>225, 23</value>
   </data>
   <data name="LocalPortTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -634,19 +487,19 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;LocalPortTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+    <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;LocalPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="GapTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 327</value>
+    <value>3, 375</value>
   </data>
   <data name="GapTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="GapTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>225, 23</value>
   </data>
   <data name="GapTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -658,46 +511,19 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;GapTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+    <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;GapTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="ConnectLogTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 385</value>
-  </data>
-  <data name="ConnectLogTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="ConnectLogTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
-  </data>
-  <data name="ConnectLogTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="ConnectLogTextBoxReadOnly.Text" xml:space="preserve">
-    <value>未连接</value>
-  </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Name" xml:space="preserve">
-    <value>ConnectLogTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="ConnectStatusTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 356</value>
+    <value>3, 404</value>
   </data>
   <data name="ConnectStatusTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="ConnectStatusTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>225, 23</value>
   </data>
   <data name="ConnectStatusTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -712,10 +538,112 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>IPSettingsFlowLayoutPanel</value>
+    <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 433</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 23</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.Text" xml:space="preserve">
+    <value>未连接</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ConnectLogTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="SettingsFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>397, 24</value>
+  </data>
+  <data name="SettingsFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 472</value>
+  </data>
+  <data name="SettingsFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;SettingsFlowLayoutPanel.Name" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;SettingsFlowLayoutPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SettingsFlowLayoutPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SettingsFlowLayoutPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="SendFileButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SendFileButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>397, 587</value>
+  </data>
+  <data name="SendFileButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 60</value>
+  </data>
+  <data name="SendFileButton.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="SendFileButton.Text" xml:space="preserve">
+    <value>发送文件</value>
+  </data>
+  <data name="&gt;&gt;SendFileButton.Name" xml:space="preserve">
+    <value>SendFileButton</value>
+  </data>
+  <data name="&gt;&gt;SendFileButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendFileButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SendFileButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="SendVideoButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SendVideoButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>397, 657</value>
+  </data>
+  <data name="SendVideoButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 60</value>
+  </data>
+  <data name="SendVideoButton.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="SendVideoButton.Text" xml:space="preserve">
+    <value>发送视频</value>
+  </data>
+  <data name="&gt;&gt;SendVideoButton.Name" xml:space="preserve">
+    <value>SendVideoButton</value>
+  </data>
+  <data name="&gt;&gt;SendVideoButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendVideoButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SendVideoButton.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -724,7 +652,7 @@
     <value>10, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>582, 753</value>
+    <value>673, 753</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 12pt</value>
