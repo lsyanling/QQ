@@ -123,14 +123,14 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="SendMessageButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>397, 517</value>
+    <value>397, 618</value>
   </data>
   <data name="SendMessageButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>228, 60</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="SendMessageButton.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>17</value>
   </data>
   <data name="SendMessageButton.Text" xml:space="preserve">
     <value>发送消息</value>
@@ -148,7 +148,7 @@
     <value>5</value>
   </data>
   <data name="MessageTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 517</value>
+    <value>29, 618</value>
   </data>
   <data name="MessageTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -160,7 +160,7 @@
     <value>347, 200</value>
   </data>
   <data name="MessageTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>20</value>
   </data>
   <data name="&gt;&gt;MessageTextBox.Name" xml:space="preserve">
     <value>MessageTextBox</value>
@@ -178,10 +178,10 @@
     <value>29, 24</value>
   </data>
   <data name="MessagesFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>347, 473</value>
+    <value>347, 579</value>
   </data>
   <data name="MessagesFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>21</value>
   </data>
   <data name="&gt;&gt;MessagesFlowLayoutPanel.Name" xml:space="preserve">
     <value>MessagesFlowLayoutPanel</value>
@@ -195,35 +195,8 @@
   <data name="&gt;&gt;MessagesFlowLayoutPanel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="ConnectModeComboBox.Items" xml:space="preserve">
-    <value>一对一辅导</value>
-  </data>
-  <data name="ConnectModeComboBox.Items1" xml:space="preserve">
-    <value>多人运动</value>
-  </data>
-  <data name="ConnectModeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="ConnectModeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 28</value>
-  </data>
-  <data name="ConnectModeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;ConnectModeComboBox.Name" xml:space="preserve">
-    <value>ConnectModeComboBox</value>
-  </data>
-  <data name="&gt;&gt;ConnectModeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConnectModeComboBox.Parent" xml:space="preserve">
-    <value>SettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;ConnectModeComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="DestinationIPTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 37</value>
+    <value>3, 3</value>
   </data>
   <data name="DestinationIPTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
@@ -232,7 +205,7 @@
     <value>225, 23</value>
   </data>
   <data name="DestinationIPTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>0</value>
   </data>
   <data name="DestinationIPTextBoxReadOnly.Text" xml:space="preserve">
     <value>目的IP</value>
@@ -247,10 +220,10 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;DestinationIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="DestinationIPTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 66</value>
+    <value>3, 32</value>
   </data>
   <data name="DestinationIPTextBox.MaxLength" type="System.Int32, mscorlib">
     <value>15</value>
@@ -259,7 +232,7 @@
     <value>225, 30</value>
   </data>
   <data name="DestinationIPTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>1</value>
   </data>
   <data name="DestinationIPTextBox.Text" xml:space="preserve">
     <value>192.168.43.167</value>
@@ -274,10 +247,10 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;DestinationIPTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="DestinationPortTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 102</value>
+    <value>3, 68</value>
   </data>
   <data name="DestinationPortTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
@@ -286,7 +259,7 @@
     <value>225, 23</value>
   </data>
   <data name="DestinationPortTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>2</value>
   </data>
   <data name="DestinationPortTextBoxReadOnly.Text" xml:space="preserve">
     <value>目的端口</value>
@@ -301,10 +274,10 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;DestinationPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="DestinationPortTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 131</value>
+    <value>3, 97</value>
   </data>
   <data name="DestinationPortTextBox.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
@@ -313,7 +286,7 @@
     <value>225, 30</value>
   </data>
   <data name="DestinationPortTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>3</value>
   </data>
   <data name="DestinationPortTextBox.Text" xml:space="preserve">
     <value>60023</value>
@@ -328,19 +301,19 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;DestinationPortTextBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="ConnectButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="ConnectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 167</value>
+    <value>3, 133</value>
   </data>
   <data name="ConnectButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>225, 40</value>
   </data>
   <data name="ConnectButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="ConnectButton.Text" xml:space="preserve">
     <value>连接</value>
@@ -355,19 +328,19 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;ConnectButton.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="DisConnectButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="DisConnectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 213</value>
+    <value>3, 179</value>
   </data>
   <data name="DisConnectButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>225, 40</value>
   </data>
   <data name="DisConnectButton.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>5</value>
   </data>
   <data name="DisConnectButton.Text" xml:space="preserve">
     <value>断开连接</value>
@@ -382,10 +355,88 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;DisConnectButton.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="ConnectStatusTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 225</value>
+  </data>
+  <data name="ConnectStatusTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="ConnectStatusTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 23</value>
+  </data>
+  <data name="ConnectStatusTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
+  <data name="ConnectStatusTextBoxReadOnly.Text" xml:space="preserve">
+    <value>目标服务器连接状态</value>
+  </data>
+  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ConnectStatusTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 254</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 23</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="ConnectLogTextBoxReadOnly.Text" xml:space="preserve">
+    <value>未发起连接</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ConnectLogTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Gap1TextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 283</value>
+  </data>
+  <data name="Gap1TextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="Gap1TextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 23</value>
+  </data>
+  <data name="Gap1TextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;Gap1TextBoxReadOnly.Name" xml:space="preserve">
+    <value>Gap1TextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;Gap1TextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Gap1TextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;Gap1TextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
   <data name="LocalConfigIPTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 259</value>
+    <value>3, 312</value>
   </data>
   <data name="LocalConfigIPTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
@@ -394,7 +445,7 @@
     <value>225, 23</value>
   </data>
   <data name="LocalConfigIPTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="LocalConfigIPTextBoxReadOnly.Text" xml:space="preserve">
     <value>本机IP</value>
@@ -409,10 +460,10 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="LocalIPTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 288</value>
+    <value>3, 341</value>
   </data>
   <data name="LocalIPTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
@@ -421,7 +472,7 @@
     <value>225, 23</value>
   </data>
   <data name="LocalIPTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="LocalIPTextBoxReadOnly.Text" xml:space="preserve">
     <value>192.168.43.167</value>
@@ -436,10 +487,10 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;LocalIPTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="LocalConfigPortTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 317</value>
+    <value>3, 370</value>
   </data>
   <data name="LocalConfigPortTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
@@ -448,7 +499,7 @@
     <value>225, 23</value>
   </data>
   <data name="LocalConfigPortTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="LocalConfigPortTextBoxReadOnly.Text" xml:space="preserve">
     <value>本机端口</value>
@@ -463,10 +514,10 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="LocalPortTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 346</value>
+    <value>3, 399</value>
   </data>
   <data name="LocalPortTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
     <value>5</value>
@@ -475,7 +526,7 @@
     <value>225, 23</value>
   </data>
   <data name="LocalPortTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="LocalPortTextBoxReadOnly.Text" xml:space="preserve">
     <value>33333</value>
@@ -490,91 +541,142 @@
     <value>SettingsFlowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;LocalPortTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="GapTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 375</value>
-  </data>
-  <data name="GapTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="GapTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 23</value>
-  </data>
-  <data name="GapTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;GapTextBoxReadOnly.Name" xml:space="preserve">
-    <value>GapTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;GapTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GapTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>SettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;GapTextBoxReadOnly.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="ConnectStatusTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 404</value>
-  </data>
-  <data name="ConnectStatusTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="ConnectStatusTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 23</value>
-  </data>
-  <data name="ConnectStatusTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="ConnectStatusTextBoxReadOnly.Text" xml:space="preserve">
-    <value>连接状态信息</value>
-  </data>
-  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Name" xml:space="preserve">
-    <value>ConnectStatusTextBoxReadOnly</value>
-  </data>
-  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Parent" xml:space="preserve">
-    <value>SettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="ConnectLogTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 433</value>
+  <data name="RunServerButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="ConnectLogTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="RunServerButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 428</value>
   </data>
-  <data name="ConnectLogTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 23</value>
+  <data name="RunServerButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 40</value>
   </data>
-  <data name="ConnectLogTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+  <data name="RunServerButton.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
   </data>
-  <data name="ConnectLogTextBoxReadOnly.Text" xml:space="preserve">
-    <value>未连接</value>
+  <data name="RunServerButton.Text" xml:space="preserve">
+    <value>启动本机服务器</value>
   </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Name" xml:space="preserve">
-    <value>ConnectLogTextBoxReadOnly</value>
+  <data name="&gt;&gt;RunServerButton.Name" xml:space="preserve">
+    <value>RunServerButton</value>
   </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;RunServerButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Parent" xml:space="preserve">
+  <data name="&gt;&gt;RunServerButton.Parent" xml:space="preserve">
     <value>SettingsFlowLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;RunServerButton.ZOrder" xml:space="preserve">
     <value>13</value>
+  </data>
+  <data name="StopServerButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="StopServerButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 474</value>
+  </data>
+  <data name="StopServerButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 40</value>
+  </data>
+  <data name="StopServerButton.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="StopServerButton.Text" xml:space="preserve">
+    <value>关闭本机服务器</value>
+  </data>
+  <data name="&gt;&gt;StopServerButton.Name" xml:space="preserve">
+    <value>StopServerButton</value>
+  </data>
+  <data name="&gt;&gt;StopServerButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StopServerButton.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;StopServerButton.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="ServerStatusTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 520</value>
+  </data>
+  <data name="ServerStatusTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="ServerStatusTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 23</value>
+  </data>
+  <data name="ServerStatusTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="ServerStatusTextBoxReadOnly.Text" xml:space="preserve">
+    <value>本机服务器运行状态</value>
+  </data>
+  <data name="&gt;&gt;ServerStatusTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ServerStatusTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ServerStatusTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ServerStatusTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ServerStatusTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="ServerLogTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 549</value>
+  </data>
+  <data name="ServerLogTextBoxReadOnly.MaxLength" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="ServerLogTextBoxReadOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 23</value>
+  </data>
+  <data name="ServerLogTextBoxReadOnly.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="ServerLogTextBoxReadOnly.Text" xml:space="preserve">
+    <value>服务器未启动</value>
+  </data>
+  <data name="&gt;&gt;ServerLogTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ServerLogTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ServerLogTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ServerLogTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ServerLogTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 578</value>
+  </data>
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 30</value>
+  </data>
+  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+    <value>17</value>
   </data>
   <data name="SettingsFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>397, 24</value>
   </data>
   <data name="SettingsFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 472</value>
+    <value>228, 579</value>
   </data>
   <data name="SettingsFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -595,13 +697,13 @@
     <value>NoControl</value>
   </data>
   <data name="SendFileButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>397, 587</value>
+    <value>397, 688</value>
   </data>
   <data name="SendFileButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>228, 60</value>
   </data>
   <data name="SendFileButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>18</value>
   </data>
   <data name="SendFileButton.Text" xml:space="preserve">
     <value>发送文件</value>
@@ -622,13 +724,13 @@
     <value>NoControl</value>
   </data>
   <data name="SendVideoButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>397, 657</value>
+    <value>397, 758</value>
   </data>
   <data name="SendVideoButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>228, 60</value>
   </data>
   <data name="SendVideoButton.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>19</value>
   </data>
   <data name="SendVideoButton.Text" xml:space="preserve">
     <value>发送视频</value>
@@ -652,7 +754,7 @@
     <value>10, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>673, 753</value>
+    <value>673, 833</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 12pt</value>

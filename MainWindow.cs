@@ -24,6 +24,9 @@ namespace QQ
         public delegate void Callback();
         public delegate void CallbackString(string str);
 
+        // -----------------------------------------------------------------------------
+        // 以下为构造方法和初始化方法
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,11 +40,8 @@ namespace QQ
             // 前端 初始化控件可用性
             InitializeComponentAvailable();
 
-            // 后端 这里开始允许建立连接
+            // 后端 这里开始允许启动服务器
             this.tcpObject = new TCPClass(localConfig);
-            // 处理客户端请求
-            tcpObject.ListenAndAccept(AcceptSuccessCallback);
-
         }
 
         // 初始化本机IP和应用程序端口号
@@ -58,13 +58,12 @@ namespace QQ
             // 控件可用性
             this.MessagesFlowLayoutPanel.Enabled = false;
             this.MessageTextBox.Enabled = false;
+
             this.SendMessageButton.Enabled = false;
             this.SendFileButton.Enabled = false;
             this.SendVideoButton.Enabled = false;
             this.DisConnectButton.Enabled = false;
-
-            // 下拉列表默认值
-            this.ConnectModeComboBox.SelectedIndex = 0;
+            this.StopServerButton.Enabled = false;
         }
 
         // -----------------------------------------------------------------------------
@@ -82,6 +81,7 @@ namespace QQ
         {
             // 修改控件可用性
             this.ConnectButton.Enabled = false;
+            this.RunServerButton.Enabled = false;
 
             // 获取对方IP和端口
             string destinationIP = this.DestinationIPTextBox.Text;
@@ -91,19 +91,108 @@ namespace QQ
             MessageBox.Show("正发起连接", "提示", MessageBoxButtons.OK);
 
             // 后端发起连接请求
-            this.tcpObject.ConnectRequest(destinationIP, destinationPort, NoRespondCallback, RespondCallback);
-
+            this.tcpObject.ConnectRequest(destinationIP, destinationPort, NoRespondCallback, RespondCallback, BroadcastMessageReceiveCallback);
         }
 
         // 断开连接事件
         private void DisConnectButton_Click(object sender, EventArgs e)
         {
             // 修改控件可用性
+            this.ConnectButton.Enabled = true;
+            this.DisConnectButton.Enabled = false;
+        }
+
+        // 启动本机服务器事件
+        private void RunServerButton_Click(object sender, EventArgs e)
+        {
+            // 修改控件可用性
+            this.DestinationIPTextBox.Enabled = false;
+            this.DestinationPortTextBox.Enabled = false;
+
             this.ConnectButton.Enabled = false;
+            this.RunServerButton.Enabled = false;
+            this.StopServerButton.Enabled = true;
+
+            // 修改状态标签
+            this.ConnectLogTextBoxReadOnly.Text = "本机服务器已在运行";
+            this.ServerLogTextBoxReadOnly.Text = "服务器已启动 等待连接";
+
+            // 消息提示
+            MessageBox.Show("已启动本机服务器", "提示", MessageBoxButtons.OK);
+
+            // 后端启动本机服务器监听
+            this.tcpObject.ListenAndAccept(AcceptSuccessCallback);
+        }
+
+        // 关闭本机服务器事件
+        private void StopServerButton_Click(object sender, EventArgs e)
+        {
+            // 修改控件可用性
+            this.DestinationIPTextBox.Enabled = true;
+            this.DestinationPortTextBox.Enabled = true;
+
+            this.ConnectButton.Enabled = true;
+            this.RunServerButton.Enabled = true;
+            this.StopServerButton.Enabled = false;
+
+            // 后端关闭本机服务器
+
+        }
+
+        // 发送消息事件
+        private void SendMessageButton_Click(object sender, EventArgs e)
+        {
+            string message = this.MessageTextBox.Text;
+
+            // 后端发送消息
+            this.tcpObject.MessageSend(message);
         }
 
         // -----------------------------------------------------------------------------
-        // 以下为底层回调
+        // 以下为控件状态
+
+        // 请求连接成功的控件状态
+        public void RespondSuccessComponentAvailable()
+        {
+            // 修改控件可用性
+            this.DestinationIPTextBox.ReadOnly = true;
+            this.DestinationPortTextBox.ReadOnly = true;
+
+            this.MessagesFlowLayoutPanel.Enabled = true;
+            this.MessageTextBox.Enabled = true;
+            this.SendMessageButton.Enabled = true;
+            this.SendFileButton.Enabled = true;
+            this.SendVideoButton.Enabled = true;
+            this.ConnectButton.Enabled = false;
+            this.DisConnectButton.Enabled = true;
+
+            // 修改状态标签
+            this.ConnectLogTextBoxReadOnly.Text = "连接成功 可以发送消息";
+            this.ServerLogTextBoxReadOnly.Text = "已与目标服务器建立连接";
+        }
+
+        // 断开连接后的控件状态
+        public void DisConnectComponentAvailable()
+        {
+
+        }
+
+        // 本机服务器建立连接的控件状态
+        public void AcceptSuccessComponentAvailable()
+        {
+            // 修改控件可用性
+            this.MessagesFlowLayoutPanel.Enabled = true;
+            this.MessageTextBox.Enabled = true;
+            this.SendMessageButton.Enabled = true;
+            this.SendFileButton.Enabled = true;
+            this.SendVideoButton.Enabled = true;
+
+            // 修改状态标签
+            this.ServerLogTextBoxReadOnly.Text = "一个客户端已连接";
+        }
+
+        // -----------------------------------------------------------------------------
+        // 以下为客户端相关的底层回调
 
         // 对方未响应连接请求的回调
         public void NoRespondCallback()
@@ -118,6 +207,7 @@ namespace QQ
             {
                 // 修改控件可用性
                 this.ConnectButton.Enabled = true;
+                this.RunServerButton.Enabled = true;
 
                 // 修改状态标签
                 this.ConnectLogTextBoxReadOnly.Text = "连接失败 对方未响应";
@@ -139,11 +229,35 @@ namespace QQ
             else
             {
                 // 修改控件可用性
-                P2PConnectSuccessComponentAvailable();
+                RespondSuccessComponentAvailable();
                 // 消息提示
                 MessageBox.Show("连接成功\n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
             }
         }
+
+        // 接收到服务端广播消息的回调
+        public void BroadcastMessageReceiveCallback(string data)
+        {
+            // 交还主线程调用
+            if (this.InvokeRequired)
+            {
+                CallbackString d = new CallbackString(BroadcastMessageReceiveCallback);
+                this.Invoke(d, data);
+            }
+            else
+            {
+                // 向流盒子中添加TextBox
+                TextBox textbox = new TextBox();
+                textbox.Text = data;
+                textbox.Multiline = true;   // 允许换行
+                textbox.ReadOnly = true;    // 消息记录只读
+                textbox.Size = new Size(this.MessagesFlowLayoutPanel.Width, 40);
+                this.MessagesFlowLayoutPanel.Controls.Add(textbox);
+            }
+        }
+
+        // -----------------------------------------------------------------------------
+        // 以下为本机服务器相关的底层回调
 
         // 服务器建立连接成功的回调
         public void AcceptSuccessCallback(string destinationIP)
@@ -157,33 +271,11 @@ namespace QQ
             else
             {
                 // 修改控件可用性
-                P2PConnectSuccessComponentAvailable();
+                AcceptSuccessComponentAvailable();
                 // 消息提示
                 MessageBox.Show($"来自{destinationIP}的一个连接已建立 \n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
             }
         }
-
-        // P2P连接状态下的控件状态
-        public void P2PConnectSuccessComponentAvailable()
-        {
-            // 修改控件可用性
-            this.ConnectModeComboBox.Enabled = false;
-
-            this.DestinationIPTextBox.ReadOnly = true;
-            this.DestinationPortTextBox.ReadOnly = true;
-
-            this.MessagesFlowLayoutPanel.Enabled = true;
-            this.MessageTextBox.Enabled = true;
-            this.SendMessageButton.Enabled = true;
-            this.SendFileButton.Enabled = true;
-            this.SendVideoButton.Enabled = true;
-            this.ConnectButton.Enabled = false;
-            this.DisConnectButton.Enabled = true;
-
-            // 修改状态标签
-            this.ConnectLogTextBoxReadOnly.Text = "连接成功 可以发送消息";
-        }
-
     }
 
     // 本机服务端相关信息
@@ -318,39 +410,213 @@ namespace QQ
         }
     }
 
-    // 从建立连接到拆除连接均在此类完成
+    // 从本机监听到拆除连接均在此类完成
     public class TCPClass
     {
         // 本机服务端
         public LocalServerConfig localServerConfig;
 
-        // -------------------------------------连接相关信息-----------------------------------
+        // -----------------------------------------------------------------------------
+        // 以下为连接相关信息
+
         // 本机服务端的 对方主机
-        public IPEndPoint LocalServerDestinationHost;
+        public Dictionary<string, IPEndPoint> AllServerDestinationHost;
         // 本机服务端接受请求的 对方套接字
-        public Socket DestinationSocket;
+        public Dictionary<string, Socket> AllServerDestinationSocket;
 
         // 本机客户端的 请求连接套接字
         public Socket LocalSocket;
         // 本机客户端请求连接的 对方主机
-        public IPEndPoint DestinationHost;    
+        public IPEndPoint DestinationHost;
+
+        public const int DATA_HEAD = 9;
+
+        // -----------------------------------------------------------------------------
+        // 以下为唯一线程
 
         // 监听线程
-        public Thread listenAndAcceptThread;
+        public Thread ListenAndAcceptThread;
         // 请求连接线程
         public Thread ConnectRequestThread;
 
-        // 回调委托
+        // -----------------------------------------------------------------------------
+        // 以下为上层回调
+
+        // 回调委托 这里的实例都是确保唯一的
         public delegate void Callback();
         public Callback NoRespondCallback;
         public Callback RespondCallback;
         public delegate void CallbackString(string str);
         public CallbackString AcceptSuccessCallback;
+        public CallbackString BroadcastMessageReceiveCallback;
 
         public TCPClass(LocalServerConfig localServerConfig_Parameter)
         {
+            // 引用本机服务器信息
             this.localServerConfig = localServerConfig_Parameter;
+
+            // 初始化字典
+            this.AllServerDestinationHost = new Dictionary<string, IPEndPoint>();
+            this.AllServerDestinationSocket = new Dictionary<string, Socket>();
         }
+
+        // -----------------------------------------------------------------------------
+        // 以下为本机客户端线程相关
+
+        // 发起连接请求
+        public void ConnectRequest(string destinationIP, string destinationPort,
+            Callback noRespondCallback, Callback respondCallback, CallbackString broadcastMessageReceiveCallback)
+        {
+            // 数据迁移
+            this.DestinationHost = new IPEndPoint(IPAddress.Parse(destinationIP), int.Parse(destinationPort));
+
+            this.LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this.NoRespondCallback = noRespondCallback;
+            this.RespondCallback = respondCallback;
+            this.BroadcastMessageReceiveCallback = broadcastMessageReceiveCallback;
+
+            // 等待响应线程
+            ThreadStart connectRequestThreadStart = ConnectRequestThreadStart;
+            this.ConnectRequestThread = new Thread(connectRequestThreadStart);
+            this.ConnectRequestThread.Start();
+        }
+
+        // 等待对方响应连接请求线程
+        public void ConnectRequestThreadStart()
+        {
+            // 设置超时间隔
+            new Thread(() =>
+            {
+                Thread.Sleep(5000);
+                if (!this.LocalSocket.Connected)
+                    this.LocalSocket.Close();
+            }).Start();
+
+            try
+            {
+                this.LocalSocket.Connect(DestinationHost.Address, DestinationHost.Port);
+
+                // 广播消息接收线程
+                ThreadStart broadcastMessageReceiveThreadStart = BroadcastMessageReceiveThreadStart;
+                new Thread(broadcastMessageReceiveThreadStart).Start();
+
+                // 回调
+                this.RespondCallback();
+            }
+            catch
+            {
+                // 回调 超时或连接失败
+                this.NoRespondCallback();
+            }
+        }
+
+        // 服务器广播消息接收线程
+        public void BroadcastMessageReceiveThreadStart()
+        {
+            byte[] receiveBuffer = new byte[1024];
+            try
+            {
+                while (true)
+                {
+                    // 缓冲区长度
+                    int bytes = 0;
+                    while (bytes == 0)
+                    {
+                        bytes = this.LocalSocket.Receive(receiveBuffer, SocketFlags.None);
+                    }
+
+                    // 解码
+                    string dataHead = Encoding.UTF8.GetString(receiveBuffer, 0, DATA_HEAD);
+                    int dataLength = int.Parse(dataHead) / 10;
+
+                    // 是消息
+                    if (dataHead[DATA_HEAD - 1] == '0')
+                    {
+                        // 接收的数据
+                        string data;
+                        int nowDataLength;
+                        // 缓冲区未清空
+                        if (bytes > DATA_HEAD)
+                        {
+                            data = Encoding.UTF8.GetString(receiveBuffer, DATA_HEAD, bytes - DATA_HEAD);
+                            nowDataLength = bytes - DATA_HEAD;
+                        }
+                        else
+                        {
+                            data = "";
+                            nowDataLength = 0;
+                        }
+                        while (nowDataLength < dataLength)
+                        {
+                            bytes = LocalSocket.Receive(receiveBuffer, SocketFlags.None);
+                            // 是本包数据
+                            if (nowDataLength + bytes <= dataLength)
+                            {
+                                data += Encoding.UTF8.GetString(receiveBuffer, 0, bytes);
+                                nowDataLength += bytes;
+                            }
+                            else
+                            {
+                                data += Encoding.UTF8.GetString(receiveBuffer, 0, dataLength - nowDataLength);
+                                nowDataLength = dataLength;
+                                // 还原缓冲区 看测试情况做
+                            }
+                        }
+
+                        // 回调 消息上交客户端的前端
+                        this.BroadcastMessageReceiveCallback(data);
+                    }
+                    // 是文件
+                    else if (dataHead[DATA_HEAD - 1] == '1')
+                    {
+
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        // 发送消息 这里定义客户端应用层协议
+        public void MessageSend(string data)
+        {
+            // 编码
+            int dataLength = data.Length;
+            string dataLengthString = dataLength.ToString();
+            int needZero = DATA_HEAD - dataLengthString.Length - 1;
+            string zero = "";
+            while (needZero > 0)
+            {
+                zero += "0";
+                needZero--;
+            }
+            data = zero + dataLength.ToString() + "0" + data;
+
+            // 消息发送线程
+            ParameterizedThreadStart messageSendThreadStart = MessageSendThreadStart;
+            new Thread(messageSendThreadStart).Start(data);
+        }
+
+        // 消息发送线程
+        public void MessageSendThreadStart(object data)
+        {
+            byte[] sendBuffer = Encoding.UTF8.GetBytes((string)data);
+            // 发送数据
+            try
+            {
+                this.LocalSocket.Send(sendBuffer);
+            }
+            catch
+            {
+                // 连接已被关闭 此处应有回调 通知上层某个客户端已断开连接
+                // 还有该连接及所属线程的善后工作
+            }
+        }
+
+        // -----------------------------------------------------------------------------
+        // 以下为本机服务端线程相关
 
         // 开启本机监听和等待连接线程
         public void ListenAndAccept(CallbackString acceptSuccessCallback)
@@ -363,8 +629,8 @@ namespace QQ
 
             // 等待连接线程
             ThreadStart acceptThreadStart = AcceptThreadStart;
-            this.listenAndAcceptThread = new Thread(acceptThreadStart);
-            this.listenAndAcceptThread.Start();
+            this.ListenAndAcceptThread = new Thread(acceptThreadStart);
+            this.ListenAndAcceptThread.Start();
         }
 
         // 等待连接线程
@@ -372,12 +638,25 @@ namespace QQ
         {
             try
             {
-                this.DestinationSocket = localServerConfig.LocalSocket.Accept();
+                // 接受连接
+                Socket aServerDestinationSocket = localServerConfig.LocalSocket.Accept();
 
-                this.LocalServerDestinationHost = (IPEndPoint)this.DestinationSocket.RemoteEndPoint;
+                // 获取连接套接字信息
+                IPEndPoint aServerDestinationHost = (IPEndPoint)aServerDestinationSocket.RemoteEndPoint;
+                string aServerDestinationAddress = aServerDestinationHost.Address.ToString();
+                int aServerDestinationPort = aServerDestinationHost.Port;
+                string key = aServerDestinationAddress + ":" + aServerDestinationPort.ToString();
+
+                // 存入字典
+                this.AllServerDestinationHost.Add(key, aServerDestinationHost);
+                this.AllServerDestinationSocket.Add(key, aServerDestinationSocket);
+
+                // 消息接收线程
+                ParameterizedThreadStart messageReceiveThreadStart = MessageReceiveThreadStart;
+                new Thread(messageReceiveThreadStart).Start(aServerDestinationSocket);
+
                 // 回调
-                this.AcceptSuccessCallback(LocalServerDestinationHost.Address.ToString());
-
+                this.AcceptSuccessCallback(key);
             }
             catch
             {
@@ -385,40 +664,117 @@ namespace QQ
             }
         }
 
-        // 发起连接请求
-        public void ConnectRequest(string destinationIP, string destinationPort, Callback noRespondCallback, Callback respondCallback)
+        // 消息接收线程 这里定义服务端应用层协议
+        public void MessageReceiveThreadStart(Object socket)
         {
-            // 数据转换
-            this.DestinationHost = new IPEndPoint(IPAddress.Parse(destinationIP), int.Parse(destinationPort));
+            IPEndPoint remoteEndPoint = (IPEndPoint)((Socket)socket).RemoteEndPoint;
+            string messageHead = "\n[" + remoteEndPoint.Address.ToString() + ":"
+                + remoteEndPoint.Port.ToString() + "]\n";
+            byte[] receiveBuffer = new byte[1024];
 
-            this.LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            this.NoRespondCallback = noRespondCallback;
-            this.RespondCallback = respondCallback;
-
-            // 等待响应线程
-            ThreadStart connectRequestThreadStart = ConnectRequestThreadStart;
-            this.ConnectRequestThread = new Thread(connectRequestThreadStart);
-            this.ConnectRequestThread.Start();
-        }
-
-        // 等待对方响应连接请求线程
-        public void ConnectRequestThreadStart()
-        {
             try
             {
-                this.LocalSocket.Connect(DestinationHost.Address, DestinationHost.Port);
+                while (true)
+                {
+                    // 缓冲区长度
+                    int bytes = 0;
+                    while (bytes == 0)
+                    {
+                        bytes = ((Socket)socket).Receive(receiveBuffer, SocketFlags.None);
+                    }
 
-                // 回调
-                this.RespondCallback();
+                    // 解码
+                    string dataHead = Encoding.UTF8.GetString(receiveBuffer, 0, DATA_HEAD);
+                    int dataLength = int.Parse(dataHead) / 10;
+
+                    // 是消息
+                    if (dataHead[DATA_HEAD - 1] == '0')
+                    {
+                        // 接收的数据
+                        string data;
+                        int nowDataLength;
+                        // 缓冲区未清空
+                        if (bytes > DATA_HEAD)
+                        {
+                            data = Encoding.UTF8.GetString(receiveBuffer, DATA_HEAD, bytes - DATA_HEAD);
+                            nowDataLength = bytes - DATA_HEAD;
+                        }
+                        else
+                        {
+                            data = "";
+                            nowDataLength = 0;
+                        }
+                        while (nowDataLength < dataLength)
+                        {
+                            bytes = ((Socket)socket).Receive(receiveBuffer, SocketFlags.None);
+                            // 是本包数据
+                            if (nowDataLength + bytes <= dataLength)
+                            {
+                                data += Encoding.UTF8.GetString(receiveBuffer, 0, bytes);
+                                nowDataLength += bytes;
+                            }
+                            else
+                            {
+                                data += Encoding.UTF8.GetString(receiveBuffer, 0, dataLength - nowDataLength);
+                                nowDataLength = dataLength;
+                                // 还原缓冲区 看测试情况做
+                            }
+                        }
+
+                        // 广播的消息 客户端无需再处理
+                        string message = messageHead + data + "\n";
+
+                        // 消息广播线程
+                        ParameterizedThreadStart messageBroadcastThreadStart = MessageBroadcastThreadStart;
+                        new Thread(messageBroadcastThreadStart).Start(message);
+
+                        // 回调 消息上交服务器主机的前端
+
+                    }
+                    // 是文件
+                    else if (dataHead[DATA_HEAD - 1] == '1')
+                    {
+
+                    }
+                }
             }
             catch
             {
-                // 执行完catch块时 子线程停止运行
 
-                // 回调
-                this.NoRespondCallback();
             }
         }
+
+        // 消息广播线程
+        public void MessageBroadcastThreadStart(object sourceData)
+        {
+            // 编码
+            string data = (string)sourceData;
+            int dataLength = data.Length;
+            string dataLengthString = dataLength.ToString();
+            int needZero = DATA_HEAD - dataLengthString.Length - 1;
+            string zero = "";
+            while (needZero > 0)
+            {
+                zero += "0";
+                needZero--;
+            }
+            data = zero + dataLength.ToString() + "0" + data;
+
+            // 广播
+            foreach (var keyValuePair in this.AllServerDestinationSocket)
+            {
+                try
+                {
+                    keyValuePair.Value.Send(Encoding.UTF8.GetBytes(data));
+                }
+                catch
+                {
+                    // 善后工作 此处应有锁
+                }
+            }
+        }
+
+
     }
 
     public class UDPClass

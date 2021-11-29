@@ -39,16 +39,20 @@
             this.DestinationPortTextBox = new System.Windows.Forms.TextBox();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.DisConnectButton = new System.Windows.Forms.Button();
+            this.ConnectStatusTextBoxReadOnly = new System.Windows.Forms.TextBox();
+            this.ConnectLogTextBoxReadOnly = new System.Windows.Forms.TextBox();
+            this.Gap1TextBoxReadOnly = new System.Windows.Forms.TextBox();
             this.LocalConfigIPTextBoxReadOnly = new System.Windows.Forms.TextBox();
             this.LocalIPTextBoxReadOnly = new System.Windows.Forms.TextBox();
             this.LocalConfigPortTextBoxReadOnly = new System.Windows.Forms.TextBox();
             this.LocalPortTextBoxReadOnly = new System.Windows.Forms.TextBox();
-            this.GapTextBoxReadOnly = new System.Windows.Forms.TextBox();
-            this.ConnectStatusTextBoxReadOnly = new System.Windows.Forms.TextBox();
-            this.ConnectLogTextBoxReadOnly = new System.Windows.Forms.TextBox();
-            this.ConnectModeComboBox = new System.Windows.Forms.ComboBox();
+            this.RunServerButton = new System.Windows.Forms.Button();
+            this.StopServerButton = new System.Windows.Forms.Button();
+            this.ServerStatusTextBoxReadOnly = new System.Windows.Forms.TextBox();
+            this.ServerLogTextBoxReadOnly = new System.Windows.Forms.TextBox();
             this.SendFileButton = new System.Windows.Forms.Button();
             this.SendVideoButton = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SettingsFlowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +61,7 @@
             resources.ApplyResources(this.SendMessageButton, "SendMessageButton");
             this.SendMessageButton.Name = "SendMessageButton";
             this.SendMessageButton.UseVisualStyleBackColor = true;
+            this.SendMessageButton.Click += new System.EventHandler(this.SendMessageButton_Click);
             // 
             // MessageTextBox
             // 
@@ -76,20 +81,24 @@
             // 
             // SettingsFlowLayoutPanel
             // 
-            this.SettingsFlowLayoutPanel.Controls.Add(this.ConnectModeComboBox);
             this.SettingsFlowLayoutPanel.Controls.Add(this.DestinationIPTextBoxReadOnly);
             this.SettingsFlowLayoutPanel.Controls.Add(this.DestinationIPTextBox);
             this.SettingsFlowLayoutPanel.Controls.Add(this.DestinationPortTextBoxReadOnly);
             this.SettingsFlowLayoutPanel.Controls.Add(this.DestinationPortTextBox);
             this.SettingsFlowLayoutPanel.Controls.Add(this.ConnectButton);
             this.SettingsFlowLayoutPanel.Controls.Add(this.DisConnectButton);
+            this.SettingsFlowLayoutPanel.Controls.Add(this.ConnectStatusTextBoxReadOnly);
+            this.SettingsFlowLayoutPanel.Controls.Add(this.ConnectLogTextBoxReadOnly);
+            this.SettingsFlowLayoutPanel.Controls.Add(this.Gap1TextBoxReadOnly);
             this.SettingsFlowLayoutPanel.Controls.Add(this.LocalConfigIPTextBoxReadOnly);
             this.SettingsFlowLayoutPanel.Controls.Add(this.LocalIPTextBoxReadOnly);
             this.SettingsFlowLayoutPanel.Controls.Add(this.LocalConfigPortTextBoxReadOnly);
             this.SettingsFlowLayoutPanel.Controls.Add(this.LocalPortTextBoxReadOnly);
-            this.SettingsFlowLayoutPanel.Controls.Add(this.GapTextBoxReadOnly);
-            this.SettingsFlowLayoutPanel.Controls.Add(this.ConnectStatusTextBoxReadOnly);
-            this.SettingsFlowLayoutPanel.Controls.Add(this.ConnectLogTextBoxReadOnly);
+            this.SettingsFlowLayoutPanel.Controls.Add(this.RunServerButton);
+            this.SettingsFlowLayoutPanel.Controls.Add(this.StopServerButton);
+            this.SettingsFlowLayoutPanel.Controls.Add(this.ServerStatusTextBoxReadOnly);
+            this.SettingsFlowLayoutPanel.Controls.Add(this.ServerLogTextBoxReadOnly);
+            this.SettingsFlowLayoutPanel.Controls.Add(this.textBox1);
             resources.ApplyResources(this.SettingsFlowLayoutPanel, "SettingsFlowLayoutPanel");
             this.SettingsFlowLayoutPanel.Name = "SettingsFlowLayoutPanel";
             // 
@@ -131,6 +140,27 @@
             this.DisConnectButton.UseVisualStyleBackColor = true;
             this.DisConnectButton.Click += new System.EventHandler(this.DisConnectButton_Click);
             // 
+            // ConnectStatusTextBoxReadOnly
+            // 
+            this.ConnectStatusTextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.ConnectStatusTextBoxReadOnly, "ConnectStatusTextBoxReadOnly");
+            this.ConnectStatusTextBoxReadOnly.Name = "ConnectStatusTextBoxReadOnly";
+            this.ConnectStatusTextBoxReadOnly.ReadOnly = true;
+            // 
+            // ConnectLogTextBoxReadOnly
+            // 
+            this.ConnectLogTextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.ConnectLogTextBoxReadOnly, "ConnectLogTextBoxReadOnly");
+            this.ConnectLogTextBoxReadOnly.Name = "ConnectLogTextBoxReadOnly";
+            this.ConnectLogTextBoxReadOnly.ReadOnly = true;
+            // 
+            // Gap1TextBoxReadOnly
+            // 
+            this.Gap1TextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.Gap1TextBoxReadOnly, "Gap1TextBoxReadOnly");
+            this.Gap1TextBoxReadOnly.Name = "Gap1TextBoxReadOnly";
+            this.Gap1TextBoxReadOnly.ReadOnly = true;
+            // 
             // LocalConfigIPTextBoxReadOnly
             // 
             this.LocalConfigIPTextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -159,36 +189,33 @@
             this.LocalPortTextBoxReadOnly.Name = "LocalPortTextBoxReadOnly";
             this.LocalPortTextBoxReadOnly.ReadOnly = true;
             // 
-            // GapTextBoxReadOnly
+            // RunServerButton
             // 
-            this.GapTextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.GapTextBoxReadOnly, "GapTextBoxReadOnly");
-            this.GapTextBoxReadOnly.Name = "GapTextBoxReadOnly";
-            this.GapTextBoxReadOnly.ReadOnly = true;
+            resources.ApplyResources(this.RunServerButton, "RunServerButton");
+            this.RunServerButton.Name = "RunServerButton";
+            this.RunServerButton.UseVisualStyleBackColor = true;
+            this.RunServerButton.Click += new System.EventHandler(this.RunServerButton_Click);
             // 
-            // ConnectStatusTextBoxReadOnly
+            // StopServerButton
             // 
-            this.ConnectStatusTextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.ConnectStatusTextBoxReadOnly, "ConnectStatusTextBoxReadOnly");
-            this.ConnectStatusTextBoxReadOnly.Name = "ConnectStatusTextBoxReadOnly";
-            this.ConnectStatusTextBoxReadOnly.ReadOnly = true;
+            resources.ApplyResources(this.StopServerButton, "StopServerButton");
+            this.StopServerButton.Name = "StopServerButton";
+            this.StopServerButton.UseVisualStyleBackColor = true;
+            this.StopServerButton.Click += new System.EventHandler(this.StopServerButton_Click);
             // 
-            // ConnectLogTextBoxReadOnly
+            // ServerStatusTextBoxReadOnly
             // 
-            this.ConnectLogTextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.ConnectLogTextBoxReadOnly, "ConnectLogTextBoxReadOnly");
-            this.ConnectLogTextBoxReadOnly.Name = "ConnectLogTextBoxReadOnly";
-            this.ConnectLogTextBoxReadOnly.ReadOnly = true;
+            this.ServerStatusTextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.ServerStatusTextBoxReadOnly, "ServerStatusTextBoxReadOnly");
+            this.ServerStatusTextBoxReadOnly.Name = "ServerStatusTextBoxReadOnly";
+            this.ServerStatusTextBoxReadOnly.ReadOnly = true;
             // 
-            // ConnectModeComboBox
+            // ServerLogTextBoxReadOnly
             // 
-            this.ConnectModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ConnectModeComboBox.FormattingEnabled = true;
-            this.ConnectModeComboBox.Items.AddRange(new object[] {
-            resources.GetString("ConnectModeComboBox.Items"),
-            resources.GetString("ConnectModeComboBox.Items1")});
-            resources.ApplyResources(this.ConnectModeComboBox, "ConnectModeComboBox");
-            this.ConnectModeComboBox.Name = "ConnectModeComboBox";
+            this.ServerLogTextBoxReadOnly.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.ServerLogTextBoxReadOnly, "ServerLogTextBoxReadOnly");
+            this.ServerLogTextBoxReadOnly.Name = "ServerLogTextBoxReadOnly";
+            this.ServerLogTextBoxReadOnly.ReadOnly = true;
             // 
             // SendFileButton
             // 
@@ -201,6 +228,11 @@
             resources.ApplyResources(this.SendVideoButton, "SendVideoButton");
             this.SendVideoButton.Name = "SendVideoButton";
             this.SendVideoButton.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
             // 
             // MainWindow
             // 
@@ -238,13 +270,17 @@
         private System.Windows.Forms.TextBox LocalIPTextBoxReadOnly;
         private System.Windows.Forms.TextBox LocalConfigPortTextBoxReadOnly;
         private System.Windows.Forms.TextBox LocalPortTextBoxReadOnly;
-        private System.Windows.Forms.TextBox GapTextBoxReadOnly;
+        private System.Windows.Forms.TextBox Gap1TextBoxReadOnly;
         private System.Windows.Forms.TextBox ConnectLogTextBoxReadOnly;
         private System.Windows.Forms.TextBox ConnectStatusTextBoxReadOnly;
         private System.Windows.Forms.Button DisConnectButton;
-        private System.Windows.Forms.ComboBox ConnectModeComboBox;
         private System.Windows.Forms.Button SendFileButton;
         private System.Windows.Forms.Button SendVideoButton;
+        private System.Windows.Forms.Button RunServerButton;
+        private System.Windows.Forms.Button StopServerButton;
+        private System.Windows.Forms.TextBox ServerStatusTextBoxReadOnly;
+        private System.Windows.Forms.TextBox ServerLogTextBoxReadOnly;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
