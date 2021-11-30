@@ -174,25 +174,241 @@
   <data name="&gt;&gt;MessageTextBox.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="MessagesFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 24</value>
+  <data name="&gt;&gt;DestinationIPTextBoxReadOnly.Name" xml:space="preserve">
+    <value>DestinationIPTextBoxReadOnly</value>
   </data>
-  <data name="MessagesFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>347, 579</value>
+  <data name="&gt;&gt;DestinationIPTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="MessagesFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
+  <data name="&gt;&gt;DestinationIPTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;MessagesFlowLayoutPanel.Name" xml:space="preserve">
-    <value>MessagesFlowLayoutPanel</value>
+  <data name="&gt;&gt;DestinationIPTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;MessagesFlowLayoutPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;DestinationIPTextBox.Name" xml:space="preserve">
+    <value>DestinationIPTextBox</value>
+  </data>
+  <data name="&gt;&gt;DestinationIPTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DestinationIPTextBox.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;DestinationIPTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;DestinationPortTextBoxReadOnly.Name" xml:space="preserve">
+    <value>DestinationPortTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;DestinationPortTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DestinationPortTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;DestinationPortTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;DestinationPortTextBox.Name" xml:space="preserve">
+    <value>DestinationPortTextBox</value>
+  </data>
+  <data name="&gt;&gt;DestinationPortTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DestinationPortTextBox.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;DestinationPortTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ConnectButton.Name" xml:space="preserve">
+    <value>ConnectButton</value>
+  </data>
+  <data name="&gt;&gt;ConnectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConnectButton.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ConnectButton.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;DisConnectButton.Name" xml:space="preserve">
+    <value>DisConnectButton</value>
+  </data>
+  <data name="&gt;&gt;DisConnectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisConnectButton.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;DisConnectButton.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ConnectStatusTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ConnectStatusTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ConnectLogTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ConnectLogTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;Gap1TextBoxReadOnly.Name" xml:space="preserve">
+    <value>Gap1TextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;Gap1TextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Gap1TextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;Gap1TextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.Name" xml:space="preserve">
+    <value>LocalConfigIPTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;LocalConfigIPTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;LocalIPTextBoxReadOnly.Name" xml:space="preserve">
+    <value>LocalIPTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;LocalIPTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LocalIPTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;LocalIPTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.Name" xml:space="preserve">
+    <value>LocalConfigPortTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;LocalConfigPortTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;LocalPortTextBoxReadOnly.Name" xml:space="preserve">
+    <value>LocalPortTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;LocalPortTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LocalPortTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;LocalPortTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;RunServerButton.Name" xml:space="preserve">
+    <value>RunServerButton</value>
+  </data>
+  <data name="&gt;&gt;RunServerButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RunServerButton.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;RunServerButton.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;StopServerButton.Name" xml:space="preserve">
+    <value>StopServerButton</value>
+  </data>
+  <data name="&gt;&gt;StopServerButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StopServerButton.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;StopServerButton.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;ServerStatusTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ServerStatusTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ServerStatusTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ServerStatusTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ServerStatusTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;ServerLogTextBoxReadOnly.Name" xml:space="preserve">
+    <value>ServerLogTextBoxReadOnly</value>
+  </data>
+  <data name="&gt;&gt;ServerLogTextBoxReadOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ServerLogTextBoxReadOnly.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ServerLogTextBoxReadOnly.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="SettingsFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>397, 24</value>
+  </data>
+  <data name="SettingsFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 579</value>
+  </data>
+  <data name="SettingsFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;SettingsFlowLayoutPanel.Name" xml:space="preserve">
+    <value>SettingsFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;SettingsFlowLayoutPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MessagesFlowLayoutPanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;SettingsFlowLayoutPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;MessagesFlowLayoutPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SettingsFlowLayoutPanel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="DestinationIPTextBoxReadOnly.Location" type="System.Drawing.Point, System.Drawing">
@@ -672,27 +888,6 @@
   <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
     <value>17</value>
   </data>
-  <data name="SettingsFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>397, 24</value>
-  </data>
-  <data name="SettingsFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 579</value>
-  </data>
-  <data name="SettingsFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;SettingsFlowLayoutPanel.Name" xml:space="preserve">
-    <value>SettingsFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;SettingsFlowLayoutPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SettingsFlowLayoutPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;SettingsFlowLayoutPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="SendFileButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -718,7 +913,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;SendFileButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="SendVideoButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -745,6 +940,33 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;SendVideoButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HistoryMessageRichTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 27</value>
+  </data>
+  <data name="HistoryMessageRichTextBox.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="HistoryMessageRichTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>347, 575</value>
+  </data>
+  <data name="HistoryMessageRichTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="HistoryMessageRichTextBox.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;HistoryMessageRichTextBox.Name" xml:space="preserve">
+    <value>HistoryMessageRichTextBox</value>
+  </data>
+  <data name="&gt;&gt;HistoryMessageRichTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HistoryMessageRichTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;HistoryMessageRichTextBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

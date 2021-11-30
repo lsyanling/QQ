@@ -56,7 +56,7 @@ namespace QQ
         public void InitializeComponentAvailable()
         {
             // 控件可用性
-            this.MessagesFlowLayoutPanel.Enabled = false;
+
             this.MessageTextBox.Enabled = false;
 
             this.SendMessageButton.Enabled = false;
@@ -120,8 +120,8 @@ namespace QQ
             // 消息提示
             MessageBox.Show("已启动本机服务器", "提示", MessageBoxButtons.OK);
 
-            // 后端启动本机服务器监听
-            this.tcpObject.ListenAndAccept(AcceptSuccessCallback);
+            // 后端启动本机服务器监听 这里暂用客户端收到广播消息的回调代替服务端收到消息的同步回调
+            this.tcpObject.ListenAndAccept(AcceptSuccessCallback, BroadcastMessageReceiveCallback);
         }
 
         // 关闭本机服务器事件
@@ -158,7 +158,7 @@ namespace QQ
             this.DestinationIPTextBox.ReadOnly = true;
             this.DestinationPortTextBox.ReadOnly = true;
 
-            this.MessagesFlowLayoutPanel.Enabled = true;
+
             this.MessageTextBox.Enabled = true;
             this.SendMessageButton.Enabled = true;
             this.SendFileButton.Enabled = true;
@@ -181,7 +181,7 @@ namespace QQ
         public void AcceptSuccessComponentAvailable()
         {
             // 修改控件可用性
-            this.MessagesFlowLayoutPanel.Enabled = true;
+
             this.MessageTextBox.Enabled = true;
             this.SendMessageButton.Enabled = true;
             this.SendFileButton.Enabled = true;
@@ -213,7 +213,7 @@ namespace QQ
                 this.ConnectLogTextBoxReadOnly.Text = "连接失败 对方未响应";
 
                 // 消息提示
-                MessageBox.Show("对方未响应连接请求\n对方可能不在线 请稍后重试", "提示", MessageBoxButtons.OK);
+                MessageBox.Show("对方未响应连接请求\r\n对方可能不在线 请稍后重试", "提示", MessageBoxButtons.OK);
             }
         }
 
@@ -231,7 +231,7 @@ namespace QQ
                 // 修改控件可用性
                 RespondSuccessComponentAvailable();
                 // 消息提示
-                MessageBox.Show("连接成功\n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
+                MessageBox.Show("连接成功\r\n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
             }
         }
 
@@ -246,13 +246,16 @@ namespace QQ
             }
             else
             {
-                // 向流盒子中添加TextBox
-                TextBox textbox = new TextBox();
-                textbox.Text = data;
-                textbox.Multiline = true;   // 允许换行
-                textbox.ReadOnly = true;    // 消息记录只读
-                textbox.Size = new Size(this.MessagesFlowLayoutPanel.Width, 40);
-                this.MessagesFlowLayoutPanel.Controls.Add(textbox);
+                //// 向流盒子中添加TextBox
+                //TextBox textbox = new TextBox();
+                //textbox.Text = data;
+                //textbox.Multiline = true;   // 允许换行
+                //textbox.ScrollBars = ScrollBars.Vertical;
+                //textbox.ReadOnly = true;    // 消息记录只读
+                //textbox.Size = new Size(this.MessagesFlowLayoutPanel.Width, 300);
+                //this.MessagesFlowLayoutPanel.Controls.Add(textbox);
+
+                this.HistoryMessageRichTextBox.Text += data;
             }
         }
 
@@ -273,7 +276,7 @@ namespace QQ
                 // 修改控件可用性
                 AcceptSuccessComponentAvailable();
                 // 消息提示
-                MessageBox.Show($"来自{destinationIP}的一个连接已建立 \n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
+                MessageBox.Show($"来自{destinationIP}的一个连接已建立 \r\n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
             }
         }
     }
@@ -448,6 +451,7 @@ namespace QQ
         public Callback RespondCallback;
         public delegate void CallbackString(string str);
         public CallbackString AcceptSuccessCallback;
+        public CallbackString ServerMessageSyncCallback;
         public CallbackString BroadcastMessageReceiveCallback;
 
         public TCPClass(LocalServerConfig localServerConfig_Parameter)
@@ -619,13 +623,14 @@ namespace QQ
         // 以下为本机服务端线程相关
 
         // 开启本机监听和等待连接线程
-        public void ListenAndAccept(CallbackString acceptSuccessCallback)
+        public void ListenAndAccept(CallbackString acceptSuccessCallback, CallbackString serverMessageSyncCallback)
         {
             // 监听
             this.localServerConfig.LocalSocket.Listen(1);
 
-            // 数据转换
+            // 数据迁移
             this.AcceptSuccessCallback = acceptSuccessCallback;
+            this.ServerMessageSyncCallback = serverMessageSyncCallback;
 
             // 等待连接线程
             ThreadStart acceptThreadStart = AcceptThreadStart;
@@ -638,25 +643,28 @@ namespace QQ
         {
             try
             {
-                // 接受连接
-                Socket aServerDestinationSocket = localServerConfig.LocalSocket.Accept();
+                while (true)
+                {
+                    // 接受连接
+                    Socket aServerDestinationSocket = localServerConfig.LocalSocket.Accept();
 
-                // 获取连接套接字信息
-                IPEndPoint aServerDestinationHost = (IPEndPoint)aServerDestinationSocket.RemoteEndPoint;
-                string aServerDestinationAddress = aServerDestinationHost.Address.ToString();
-                int aServerDestinationPort = aServerDestinationHost.Port;
-                string key = aServerDestinationAddress + ":" + aServerDestinationPort.ToString();
+                    // 获取连接套接字信息
+                    IPEndPoint aServerDestinationHost = (IPEndPoint)aServerDestinationSocket.RemoteEndPoint;
+                    string aServerDestinationAddress = aServerDestinationHost.Address.ToString();
+                    int aServerDestinationPort = aServerDestinationHost.Port;
+                    string key = aServerDestinationAddress + ":" + aServerDestinationPort.ToString();
 
-                // 存入字典
-                this.AllServerDestinationHost.Add(key, aServerDestinationHost);
-                this.AllServerDestinationSocket.Add(key, aServerDestinationSocket);
+                    // 存入字典
+                    this.AllServerDestinationHost.Add(key, aServerDestinationHost);
+                    this.AllServerDestinationSocket.Add(key, aServerDestinationSocket);
 
-                // 消息接收线程
-                ParameterizedThreadStart messageReceiveThreadStart = MessageReceiveThreadStart;
-                new Thread(messageReceiveThreadStart).Start(aServerDestinationSocket);
+                    // 消息接收线程
+                    ParameterizedThreadStart messageReceiveThreadStart = MessageReceiveThreadStart;
+                    new Thread(messageReceiveThreadStart).Start(aServerDestinationSocket);
 
-                // 回调
-                this.AcceptSuccessCallback(key);
+                    // 回调
+                    this.AcceptSuccessCallback(key);
+                }
             }
             catch
             {
@@ -668,8 +676,8 @@ namespace QQ
         public void MessageReceiveThreadStart(Object socket)
         {
             IPEndPoint remoteEndPoint = (IPEndPoint)((Socket)socket).RemoteEndPoint;
-            string messageHead = "\n[" + remoteEndPoint.Address.ToString() + ":"
-                + remoteEndPoint.Port.ToString() + "]\n";
+            string messageHead = "\r\n[" + remoteEndPoint.Address.ToString() + ":"
+                + remoteEndPoint.Port.ToString() + "]\r\n";
             byte[] receiveBuffer = new byte[1024];
 
             try
@@ -722,14 +730,14 @@ namespace QQ
                         }
 
                         // 广播的消息 客户端无需再处理
-                        string message = messageHead + data + "\n";
+                        string message = messageHead + data + "\r\n";
 
                         // 消息广播线程
                         ParameterizedThreadStart messageBroadcastThreadStart = MessageBroadcastThreadStart;
                         new Thread(messageBroadcastThreadStart).Start(message);
 
                         // 回调 消息上交服务器主机的前端
-
+                        this.ServerMessageSyncCallback(message);
                     }
                     // 是文件
                     else if (dataHead[DATA_HEAD - 1] == '1')

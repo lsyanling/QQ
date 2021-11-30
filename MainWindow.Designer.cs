@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.MessageTextBox = new System.Windows.Forms.TextBox();
-            this.MessagesFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SettingsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.DestinationIPTextBoxReadOnly = new System.Windows.Forms.TextBox();
             this.DestinationIPTextBox = new System.Windows.Forms.TextBox();
@@ -50,9 +49,10 @@
             this.StopServerButton = new System.Windows.Forms.Button();
             this.ServerStatusTextBoxReadOnly = new System.Windows.Forms.TextBox();
             this.ServerLogTextBoxReadOnly = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SendFileButton = new System.Windows.Forms.Button();
             this.SendVideoButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.HistoryMessageRichTextBox = new System.Windows.Forms.RichTextBox();
             this.SettingsFlowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,13 +71,6 @@
             this.MessageTextBox.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.MessageTextBox, "MessageTextBox");
             this.MessageTextBox.Name = "MessageTextBox";
-            // 
-            // MessagesFlowLayoutPanel
-            // 
-            this.MessagesFlowLayoutPanel.BackColor = System.Drawing.SystemColors.Window;
-            this.MessagesFlowLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.MessagesFlowLayoutPanel, "MessagesFlowLayoutPanel");
-            this.MessagesFlowLayoutPanel.Name = "MessagesFlowLayoutPanel";
             // 
             // SettingsFlowLayoutPanel
             // 
@@ -217,6 +210,11 @@
             this.ServerLogTextBoxReadOnly.Name = "ServerLogTextBoxReadOnly";
             this.ServerLogTextBoxReadOnly.ReadOnly = true;
             // 
+            // textBox1
+            // 
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            // 
             // SendFileButton
             // 
             resources.ApplyResources(this.SendFileButton, "SendFileButton");
@@ -229,19 +227,22 @@
             this.SendVideoButton.Name = "SendVideoButton";
             this.SendVideoButton.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // HistoryMessageRichTextBox
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
+            this.HistoryMessageRichTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.HistoryMessageRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.HistoryMessageRichTextBox, "HistoryMessageRichTextBox");
+            this.HistoryMessageRichTextBox.Name = "HistoryMessageRichTextBox";
+            this.HistoryMessageRichTextBox.ReadOnly = true;
             // 
             // MainWindow
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.HistoryMessageRichTextBox);
             this.Controls.Add(this.SendVideoButton);
             this.Controls.Add(this.SendFileButton);
             this.Controls.Add(this.SettingsFlowLayoutPanel);
-            this.Controls.Add(this.MessagesFlowLayoutPanel);
             this.Controls.Add(this.MessageTextBox);
             this.Controls.Add(this.SendMessageButton);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -259,7 +260,6 @@
 
         private System.Windows.Forms.Button SendMessageButton;
         private System.Windows.Forms.TextBox MessageTextBox;
-        private System.Windows.Forms.FlowLayoutPanel MessagesFlowLayoutPanel;
         private System.Windows.Forms.FlowLayoutPanel SettingsFlowLayoutPanel;
         private System.Windows.Forms.TextBox DestinationIPTextBox;
         private System.Windows.Forms.TextBox DestinationPortTextBox;
@@ -281,6 +281,7 @@
         private System.Windows.Forms.TextBox ServerStatusTextBoxReadOnly;
         private System.Windows.Forms.TextBox ServerLogTextBoxReadOnly;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RichTextBox HistoryMessageRichTextBox;
     }
 }
 
