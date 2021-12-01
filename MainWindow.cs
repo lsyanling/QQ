@@ -11,18 +11,32 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Net.NetworkInformation;
-
 using System.Threading;
+using System.IO;
+using System.Drawing.Imaging;
+
+using OpenCvSharp;
 
 namespace QQ
 {
     public partial class MainWindow : Form
     {
+        // 网络层实例
         public LocalServerConfig localConfig;
         public TCPClass tcpObject;
+        public UDPClass udpObject;
 
+        // 网络层回调委托
         public delegate void Callback();
         public delegate void CallbackString(string str);
+        public delegate void CallbackMat(Mat mat);
+
+        public const string VideoWindow = "Camera";
+        Window videoWindow;
+
+        // 当前是服务端还是客户端
+        public enum ServerClientStatus { Server, Client };
+        public ServerClientStatus serverClientStatus;
 
         // -----------------------------------------------------------------------------
         // 以下为构造方法和初始化方法
@@ -42,6 +56,10 @@ namespace QQ
 
             // 后端 这里开始允许启动服务器
             this.tcpObject = new TCPClass(localConfig);
+
+            // 后端 这里开始允许接收视频流
+            this.udpObject = new UDPClass(localConfig);
+            this.udpObject.StartReceive(ServerReceiveMatCallback, StopVideoReceive);
         }
 
         // 初始化本机IP和应用程序端口号
@@ -56,7 +74,6 @@ namespace QQ
         public void InitializeComponentAvailable()
         {
             // 控件可用性
-
             this.MessageTextBox.Enabled = false;
 
             this.SendMessageButton.Enabled = false;
@@ -98,8 +115,7 @@ namespace QQ
         private void DisConnectButton_Click(object sender, EventArgs e)
         {
             // 修改控件可用性
-            this.ConnectButton.Enabled = true;
-            this.DisConnectButton.Enabled = false;
+            DisConnectComponentAvailable();
         }
 
         // 启动本机服务器事件
@@ -121,7 +137,7 @@ namespace QQ
             MessageBox.Show("已启动本机服务器", "提示", MessageBoxButtons.OK);
 
             // 后端启动本机服务器监听 这里暂用客户端收到广播消息的回调代替服务端收到消息的同步回调
-            this.tcpObject.ListenAndAccept(AcceptSuccessCallback, BroadcastMessageReceiveCallback);
+            this.tcpObject.ListenAndAccept(this.udpObject.LocalHost.Port, AcceptSuccessCallback, BroadcastMessageReceiveCallback);
         }
 
         // 关闭本机服务器事件
@@ -146,6 +162,83 @@ namespace QQ
 
             // 后端发送消息
             this.tcpObject.MessageSend(message);
+
+            // 清空消息盒子
+            this.MessageTextBox.Text = "";
+        }
+
+        // 发送文件事件
+        private void SendFileButton_Click(object sender, EventArgs e)
+        {
+            // 打开文件对话框
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+        }
+
+        // 发送视频事件
+        private void SendVideoButton_Click(object sender, EventArgs e)
+        {
+            // 修改控件可用性
+            this.SendVideoButton.Enabled = false;
+
+            // 视频窗口线程
+            Thread VideoWindowThread = new Thread(VideoWindowThreadStart);
+            VideoWindowThread.Start();
+        }
+
+        // 视频窗口线程
+        public void VideoWindowThreadStart()
+        {
+            // 相机
+            VideoCapture videoCapture = new VideoCapture(0);
+            Window videoWindow = new Window(VideoWindow);
+            Mat currentMat = new Mat();
+
+            while (true)
+            {
+                videoCapture.Read(currentMat);
+                if (currentMat.Empty())
+                    break;
+
+                // 发送UDP报文
+                this.udpObject.SendCurrentMat(currentMat, this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
+
+                // 显示图像
+                videoWindow.ShowImage(currentMat);
+                Cv2.WaitKey(10);
+
+                // 这个地方应该不异常才对 导致我需要写两遍
+                try
+                {
+                    // 关闭视频窗口
+                    if (Cv2.GetWindowProperty(VideoWindow, 0) == -1)
+                    {
+                        // 修改控件可用性
+                        this.SendVideoButton.Enabled = true;
+
+                        // 发送停止信号报文
+                        this.udpObject.SendCurrentMat(currentMat, this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
+
+                        // 关闭相机实例
+                        videoCapture.Dispose();
+
+                        break;
+                    }
+                }
+                catch
+                {
+                    // 修改控件可用性
+                    this.SendVideoButton.Enabled = true;
+
+                    // 发送停止信号报文
+                    this.udpObject.SendCurrentMat(currentMat, this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
+
+                    // 关闭相机实例
+                    videoCapture.Dispose();
+
+                    break;
+                }
+            }
         }
 
         // -----------------------------------------------------------------------------
@@ -158,7 +251,6 @@ namespace QQ
             this.DestinationIPTextBox.ReadOnly = true;
             this.DestinationPortTextBox.ReadOnly = true;
 
-
             this.MessageTextBox.Enabled = true;
             this.SendMessageButton.Enabled = true;
             this.SendFileButton.Enabled = true;
@@ -169,12 +261,32 @@ namespace QQ
             // 修改状态标签
             this.ConnectLogTextBoxReadOnly.Text = "连接成功 可以发送消息";
             this.ServerLogTextBoxReadOnly.Text = "已与目标服务器建立连接";
+
+            // 修改CS状态
+            this.serverClientStatus = ServerClientStatus.Client;
         }
 
         // 断开连接后的控件状态
         public void DisConnectComponentAvailable()
         {
+            // 修改控件可用性
+            this.DestinationIPTextBox.ReadOnly = false;
+            this.DestinationPortTextBox.ReadOnly = false;
 
+            this.MessageTextBox.Enabled = false;
+            this.SendMessageButton.Enabled = false;
+            this.SendFileButton.Enabled = false;
+            this.SendVideoButton.Enabled = false;
+            this.ConnectButton.Enabled = true;
+            this.DisConnectButton.Enabled = false;
+            this.RunServerButton.Enabled = true;
+
+            // 修改状态标签
+            this.ConnectLogTextBoxReadOnly.Text = "已断开连接";
+            this.ServerLogTextBoxReadOnly.Text = "服务器未启动";
+
+            // 修改CS状态
+            this.serverClientStatus = ServerClientStatus.Client;
         }
 
         // 本机服务器建立连接的控件状态
@@ -189,6 +301,9 @@ namespace QQ
 
             // 修改状态标签
             this.ServerLogTextBoxReadOnly.Text = "一个客户端已连接";
+
+            // 修改CS状态
+            this.serverClientStatus = ServerClientStatus.Server;
         }
 
         // -----------------------------------------------------------------------------
@@ -259,6 +374,39 @@ namespace QQ
             }
         }
 
+        // 服务端接收到mat的回调
+        public void ServerReceiveMatCallback(Mat currentMat)
+        {
+            // 交还主线程调用
+            if (this.InvokeRequired)
+            {
+                CallbackMat d = new CallbackMat(ServerReceiveMatCallback);
+                this.Invoke(d, currentMat);
+            }
+            else
+            {
+                this.videoWindow = new Window(VideoWindow);
+                // 显示图像
+                videoWindow.ShowImage(currentMat);
+                Cv2.WaitKey(10);
+            }
+        }
+
+        // 服务端停止接收视频的回调
+        public void StopVideoReceive()
+        {
+            // 交还主线程调用
+            if (this.InvokeRequired)
+            {
+                Callback d = new Callback(StopVideoReceive);
+                this.Invoke(d);
+            }
+            else
+            {
+                this.videoWindow.Close();
+            }
+        }
+
         // -----------------------------------------------------------------------------
         // 以下为本机服务器相关的底层回调
 
@@ -279,6 +427,24 @@ namespace QQ
                 MessageBox.Show($"来自{destinationIP}的一个连接已建立 \r\n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
             }
         }
+
+        // -----------------------------------------------------------------------------
+        // 以下为视频窗口相关的回调
+        // 关闭视频窗口的回调
+        public void CloseVideoWindowCallback()
+        {
+            // 交还主线程调用
+            if (this.InvokeRequired)
+            {
+                Callback d = new Callback(CloseVideoWindowCallback);
+                this.Invoke(d);
+            }
+            else
+            {
+                // 修改控件可用性
+                this.SendVideoButton.Enabled = true;
+            }
+        }
     }
 
     // 本机服务端相关信息
@@ -294,7 +460,7 @@ namespace QQ
             // 获取所有网卡
             NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
-            // 弃用代码
+            // 弃用代码 but是有意义的轮子 暂且保留
             {
                 //// ping
                 //Ping ping = new Ping();
@@ -393,23 +559,18 @@ namespace QQ
             if (mostSuitableIp == null)
             {
                 this.LocalIP = "127.0.0.1";
-                this.LocalHost = new IPEndPoint(IPAddress.Parse(LocalIP), 0);
-                this.LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                this.LocalSocket.Bind(LocalHost);
-                // EndPoint是抽象类 需要强制类型转换再取Port
-                this.LocalPort = ((IPEndPoint)LocalSocket.LocalEndPoint).Port;
-                this.LocalHost.Port = LocalPort;
+                this.LocalHost = new IPEndPoint(IPAddress.Parse(this.LocalIP), 0);
             }
             else
             {
                 this.LocalIP = mostSuitableIp.Address.ToString();
                 this.LocalHost = new IPEndPoint(mostSuitableIp.Address, 0);
-                this.LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                this.LocalSocket.Bind(LocalHost);
-                // EndPoint是抽象类 需要强制类型转换再取Port
-                this.LocalPort = ((IPEndPoint)LocalSocket.LocalEndPoint).Port;
-                this.LocalHost.Port = LocalPort;
             }
+            this.LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this.LocalSocket.Bind(this.LocalHost);
+            // EndPoint是抽象类 需要强制类型转换再取Port
+            this.LocalPort = ((IPEndPoint)this.LocalSocket.LocalEndPoint).Port;
+            this.LocalHost.Port = this.LocalPort;
         }
     }
 
@@ -426,11 +587,18 @@ namespace QQ
         public Dictionary<string, IPEndPoint> AllServerDestinationHost;
         // 本机服务端接受请求的 对方套接字
         public Dictionary<string, Socket> AllServerDestinationSocket;
+        // 本机服务端的每个连接的 对方UDP接收端口
+        public Dictionary<string, int> AllServerDestinationUdpPort;
+
+        // 本机接收视频的UDP端口
+        public int udpPort;
 
         // 本机客户端的 请求连接套接字
         public Socket LocalSocket;
         // 本机客户端请求连接的 对方主机
         public IPEndPoint DestinationHost;
+        // 本机客户端收到的 服务端UDP端口
+        public int DestinationUdpPort;
 
         public const int DATA_HEAD = 9;
 
@@ -462,6 +630,7 @@ namespace QQ
             // 初始化字典
             this.AllServerDestinationHost = new Dictionary<string, IPEndPoint>();
             this.AllServerDestinationSocket = new Dictionary<string, Socket>();
+            this.AllServerDestinationUdpPort = new Dictionary<string, int>();
         }
 
         // -----------------------------------------------------------------------------
@@ -499,6 +668,23 @@ namespace QQ
             try
             {
                 this.LocalSocket.Connect(DestinationHost.Address, DestinationHost.Port);
+
+                // 这一段阻塞 客户端和服务端都需要知道对方的UDP端口
+                // 由于此时还没有开启消息接收线程 阻塞不影响客户端
+                {
+                    // 接收服务器UDP端口
+                    byte[] udpPortByte = new byte[4];
+                    int bytes = 0;
+                    while (bytes == 0)
+                    {
+                        bytes = this.LocalSocket.Receive(udpPortByte);
+                    }
+                    this.DestinationUdpPort = BitConverter.ToInt32(udpPortByte, 0);
+
+                    // 向服务器发送自己的UDP端口
+                    udpPortByte = BitConverter.GetBytes(this.udpPort);
+                    this.LocalSocket.Send(udpPortByte);
+                }
 
                 // 广播消息接收线程
                 ThreadStart broadcastMessageReceiveThreadStart = BroadcastMessageReceiveThreadStart;
@@ -623,12 +809,15 @@ namespace QQ
         // 以下为本机服务端线程相关
 
         // 开启本机监听和等待连接线程
-        public void ListenAndAccept(CallbackString acceptSuccessCallback, CallbackString serverMessageSyncCallback)
+        public void ListenAndAccept(int udpPortSource, CallbackString acceptSuccessCallback, CallbackString serverMessageSyncCallback)
         {
             // 监听
             this.localServerConfig.LocalSocket.Listen(1);
 
             // 数据迁移
+            // 这行低内聚高耦合 千万不要动
+            this.udpPort = udpPortSource;
+
             this.AcceptSuccessCallback = acceptSuccessCallback;
             this.ServerMessageSyncCallback = serverMessageSyncCallback;
 
@@ -658,6 +847,23 @@ namespace QQ
                     this.AllServerDestinationHost.Add(key, aServerDestinationHost);
                     this.AllServerDestinationSocket.Add(key, aServerDestinationSocket);
 
+                    // 这一段阻塞 客户端和服务端都需要知道对方的UDP端口
+                    // 由于此时还没有开启消息接收线程 阻塞不影响服务端
+                    {
+                        // 通知客户端UDP端口
+                        byte[] udpPortByte = BitConverter.GetBytes(this.udpPort);
+                        aServerDestinationSocket.Send(udpPortByte);
+
+                        // 接收客户端UDP端口
+                        udpPortByte = new byte[4];
+                        int bytes = 0;
+                        while (bytes == 0)
+                        {
+                            bytes = aServerDestinationSocket.Receive(udpPortByte);
+                        }
+                        this.AllServerDestinationUdpPort.Add(aServerDestinationAddress, BitConverter.ToInt32(udpPortByte, 0));
+                    }
+
                     // 消息接收线程
                     ParameterizedThreadStart messageReceiveThreadStart = MessageReceiveThreadStart;
                     new Thread(messageReceiveThreadStart).Start(aServerDestinationSocket);
@@ -668,7 +874,7 @@ namespace QQ
             }
             catch
             {
-                MessageBox.Show("错误代码2333", "提示", MessageBoxButtons.YesNo);
+                MessageBox.Show("错误代码2333", "提示", MessageBoxButtons.OK);
             }
         }
 
@@ -785,10 +991,112 @@ namespace QQ
 
     }
 
+    // UDP的接收窗口应仅在建立连接后或启动本机服务器后才开启
     public class UDPClass
     {
-        public UDPClass()
+        // 本机服务端
+        public LocalServerConfig localServerConfig;
+
+        public IPEndPoint LocalHost;
+
+        // 接收视频套接字
+        public Socket LocalSocket;
+
+        public const int MAX_DATA = 50000;
+        public const int DATA_HEAD = 9;
+
+        // 上层回调
+        public delegate void Callback();
+        public Callback StopVideoReceive;
+        public delegate void CallbackMat(Mat mat);
+        public CallbackMat ServerReceiveMatCallback;
+
+        public UDPClass(LocalServerConfig localServerConfig_Parameter)
         {
+            // 引用本机服务器信息
+            this.localServerConfig = localServerConfig_Parameter;
+
+            this.LocalHost = new IPEndPoint(IPAddress.Parse(this.localServerConfig.LocalIP), 0);
+
+            // 初始化接收套接字
+            this.LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            this.LocalSocket.Bind(this.LocalHost);
+
+            // 申请端口 EndPoint是抽象类 需要强制类型转换再取Port
+            this.LocalHost.Port = ((IPEndPoint)this.LocalSocket.LocalEndPoint).Port;
+        }
+
+        // 启动接收窗口
+        public void StartReceive(CallbackMat serverReceiveMatCallback, Callback stopVideoReceive)
+        {
+            // 数据迁移
+            this.ServerReceiveMatCallback = serverReceiveMatCallback;
+            this.StopVideoReceive = stopVideoReceive;
+
+            ThreadStart startReceiveThreadStart = StartReceiveThreadStart;
+            new Thread(startReceiveThreadStart).Start();
+        }
+
+        // UDP接收位图线程 这里定义服务端应用层协议
+        public void StartReceiveThreadStart()
+        {
+            byte[] receiveBuffer = new byte[MAX_DATA];
+
+            try
+            {
+                while (true)
+                {
+                    // 缓冲区长度
+                    int bytes = 0;
+                    while (bytes == 0)
+                    {
+                        bytes = this.LocalSocket.Receive(receiveBuffer, SocketFlags.None);
+                    }
+
+                    // 解码
+                    Mat currentMat = Cv2.ImDecode(receiveBuffer, ImreadModes.Unchanged);
+
+                    //// 消息广播线程
+                    //ParameterizedThreadStart messageBroadcastThreadStart = MessageBroadcastThreadStart;
+                    //new Thread(messageBroadcastThreadStart).Start(message);
+
+                    // 回调 消息上交服务器主机的前端
+                    this.ServerReceiveMatCallback(currentMat);
+                }
+            }
+            catch
+            {
+                // 回调 消息上交服务器主机的前端
+                this.StopVideoReceive();
+            }
+        }
+
+        // 发送位图 这里定义客户端应用层协议
+        public void SendCurrentMat(Mat currentMat, string destinationIP, int destinationPort)
+        {
+            byte[] byteBitmap;
+            Cv2.ImEncode(".jpg", currentMat, out byteBitmap);
+
+            IPEndPoint destinationHost = new IPEndPoint(IPAddress.Parse(destinationIP), destinationPort);
+            Socket sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            sendSocket.Bind(new IPEndPoint(IPAddress.Parse(localServerConfig.LocalIP), 0));
+
+            int bytes = byteBitmap.Length;
+
+            if(bytes<MAX_DATA)
+                sendSocket.SendTo(byteBitmap, SocketFlags.None, destinationHost);
+        }
+
+        // 发送停止信号 客户端应用层协议的一部分
+        public void SendStopVideo(string destinationIP, int destinationPort)
+        {
+            IPEndPoint destinationHost = new IPEndPoint(IPAddress.Parse(destinationIP), destinationPort);
+            Socket sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            sendSocket.Bind(new IPEndPoint(IPAddress.Parse(localServerConfig.LocalIP), 0));
+
+            string stopSignal = "1";
+
+            sendSocket.SendTo(Encoding.UTF8.GetBytes(stopSignal), SocketFlags.None, destinationHost);
         }
     }
 }

@@ -49,7 +49,6 @@
             this.StopServerButton = new System.Windows.Forms.Button();
             this.ServerStatusTextBoxReadOnly = new System.Windows.Forms.TextBox();
             this.ServerLogTextBoxReadOnly = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SendFileButton = new System.Windows.Forms.Button();
             this.SendVideoButton = new System.Windows.Forms.Button();
             this.HistoryMessageRichTextBox = new System.Windows.Forms.RichTextBox();
@@ -91,7 +90,6 @@
             this.SettingsFlowLayoutPanel.Controls.Add(this.StopServerButton);
             this.SettingsFlowLayoutPanel.Controls.Add(this.ServerStatusTextBoxReadOnly);
             this.SettingsFlowLayoutPanel.Controls.Add(this.ServerLogTextBoxReadOnly);
-            this.SettingsFlowLayoutPanel.Controls.Add(this.textBox1);
             resources.ApplyResources(this.SettingsFlowLayoutPanel, "SettingsFlowLayoutPanel");
             this.SettingsFlowLayoutPanel.Name = "SettingsFlowLayoutPanel";
             // 
@@ -210,22 +208,19 @@
             this.ServerLogTextBoxReadOnly.Name = "ServerLogTextBoxReadOnly";
             this.ServerLogTextBoxReadOnly.ReadOnly = true;
             // 
-            // textBox1
-            // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            // 
             // SendFileButton
             // 
             resources.ApplyResources(this.SendFileButton, "SendFileButton");
             this.SendFileButton.Name = "SendFileButton";
             this.SendFileButton.UseVisualStyleBackColor = true;
+            this.SendFileButton.Click += new System.EventHandler(this.SendFileButton_Click);
             // 
             // SendVideoButton
             // 
             resources.ApplyResources(this.SendVideoButton, "SendVideoButton");
             this.SendVideoButton.Name = "SendVideoButton";
             this.SendVideoButton.UseVisualStyleBackColor = true;
+            this.SendVideoButton.Click += new System.EventHandler(this.SendVideoButton_Click);
             // 
             // HistoryMessageRichTextBox
             // 
@@ -280,7 +275,6 @@
         private System.Windows.Forms.Button StopServerButton;
         private System.Windows.Forms.TextBox ServerStatusTextBoxReadOnly;
         private System.Windows.Forms.TextBox ServerLogTextBoxReadOnly;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RichTextBox HistoryMessageRichTextBox;
     }
 }
