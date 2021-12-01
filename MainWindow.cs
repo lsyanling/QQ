@@ -31,8 +31,10 @@ namespace QQ
         public delegate void CallbackString(string str);
         public delegate void CallbackMat(Mat mat);
 
-        public const string VideoWindow = "Camera";
-        Window videoWindow;
+        // 视频相关
+        public const string VIDEO_WINDOW_NAME = "Camera";
+        public const int CV2WAIT_TIME = 40;
+        public Window videoWindow;
 
         // 当前是服务端还是客户端
         public enum ServerClientStatus { Server, Client };
@@ -59,7 +61,7 @@ namespace QQ
 
             // 后端 这里开始允许接收视频流
             this.udpObject = new UDPClass(localConfig);
-            this.udpObject.StartReceive(ServerReceiveMatCallback, StopVideoReceive);
+            this.udpObject.StartReceive(ServerReceiveMatCallback);
         }
 
         // 初始化本机IP和应用程序端口号
@@ -185,13 +187,12 @@ namespace QQ
             Thread VideoWindowThread = new Thread(VideoWindowThreadStart);
             VideoWindowThread.Start();
         }
-
         // 视频窗口线程
         public void VideoWindowThreadStart()
         {
             // 相机
             VideoCapture videoCapture = new VideoCapture(0);
-            Window videoWindow = new Window(VideoWindow);
+            Window videoWindow = new Window(VIDEO_WINDOW_NAME);
             Mat currentMat = new Mat();
 
             while (true)
@@ -205,19 +206,19 @@ namespace QQ
 
                 // 显示图像
                 videoWindow.ShowImage(currentMat);
-                Cv2.WaitKey(10);
+                Cv2.WaitKey(CV2WAIT_TIME);
 
                 // 这个地方应该不异常才对 导致我需要写两遍
                 try
                 {
                     // 关闭视频窗口
-                    if (Cv2.GetWindowProperty(VideoWindow, 0) == -1)
+                    if (Cv2.GetWindowProperty(VIDEO_WINDOW_NAME, 0) == -1)
                     {
                         // 修改控件可用性
                         this.SendVideoButton.Enabled = true;
 
                         // 发送停止信号报文
-                        this.udpObject.SendCurrentMat(currentMat, this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
+                        this.udpObject.SendStopVideo(this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
 
                         // 关闭相机实例
                         videoCapture.Dispose();
@@ -231,7 +232,7 @@ namespace QQ
                     this.SendVideoButton.Enabled = true;
 
                     // 发送停止信号报文
-                    this.udpObject.SendCurrentMat(currentMat, this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
+                    this.udpObject.SendStopVideo(this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
 
                     // 关闭相机实例
                     videoCapture.Dispose();
@@ -374,39 +375,6 @@ namespace QQ
             }
         }
 
-        // 服务端接收到mat的回调
-        public void ServerReceiveMatCallback(Mat currentMat)
-        {
-            // 交还主线程调用
-            if (this.InvokeRequired)
-            {
-                CallbackMat d = new CallbackMat(ServerReceiveMatCallback);
-                this.Invoke(d, currentMat);
-            }
-            else
-            {
-                this.videoWindow = new Window(VideoWindow);
-                // 显示图像
-                videoWindow.ShowImage(currentMat);
-                Cv2.WaitKey(10);
-            }
-        }
-
-        // 服务端停止接收视频的回调
-        public void StopVideoReceive()
-        {
-            // 交还主线程调用
-            if (this.InvokeRequired)
-            {
-                Callback d = new Callback(StopVideoReceive);
-                this.Invoke(d);
-            }
-            else
-            {
-                this.videoWindow.Close();
-            }
-        }
-
         // -----------------------------------------------------------------------------
         // 以下为本机服务器相关的底层回调
 
@@ -428,21 +396,29 @@ namespace QQ
             }
         }
 
-        // -----------------------------------------------------------------------------
-        // 以下为视频窗口相关的回调
-        // 关闭视频窗口的回调
-        public void CloseVideoWindowCallback()
+        // 服务端接收到mat的回调
+        public void ServerReceiveMatCallback(Mat currentMat)
         {
             // 交还主线程调用
             if (this.InvokeRequired)
             {
-                Callback d = new Callback(CloseVideoWindowCallback);
-                this.Invoke(d);
+                CallbackMat d = new CallbackMat(ServerReceiveMatCallback);
+                this.Invoke(d, currentMat);
             }
             else
             {
-                // 修改控件可用性
-                this.SendVideoButton.Enabled = true;
+                try
+                {
+                    this.videoWindow = new Window(VIDEO_WINDOW_NAME);
+                    // 显示图像
+                    this.videoWindow.ShowImage(currentMat);
+                    Cv2.WaitKey(CV2WAIT_TIME);
+                }
+                catch
+                {
+                    // 意味着客户端结束了视频
+                    this.videoWindow.Close();
+                }
             }
         }
     }
@@ -1006,8 +982,6 @@ namespace QQ
         public const int DATA_HEAD = 9;
 
         // 上层回调
-        public delegate void Callback();
-        public Callback StopVideoReceive;
         public delegate void CallbackMat(Mat mat);
         public CallbackMat ServerReceiveMatCallback;
 
@@ -1027,11 +1001,10 @@ namespace QQ
         }
 
         // 启动接收窗口
-        public void StartReceive(CallbackMat serverReceiveMatCallback, Callback stopVideoReceive)
+        public void StartReceive(CallbackMat serverReceiveMatCallback)
         {
             // 数据迁移
             this.ServerReceiveMatCallback = serverReceiveMatCallback;
-            this.StopVideoReceive = stopVideoReceive;
 
             ThreadStart startReceiveThreadStart = StartReceiveThreadStart;
             new Thread(startReceiveThreadStart).Start();
@@ -1060,14 +1033,13 @@ namespace QQ
                     //ParameterizedThreadStart messageBroadcastThreadStart = MessageBroadcastThreadStart;
                     //new Thread(messageBroadcastThreadStart).Start(message);
 
-                    // 回调 消息上交服务器主机的前端
+                    // 回调 mat上交服务器主机的前端
                     this.ServerReceiveMatCallback(currentMat);
                 }
             }
             catch
             {
-                // 回调 消息上交服务器主机的前端
-                this.StopVideoReceive();
+
             }
         }
 
@@ -1083,7 +1055,7 @@ namespace QQ
 
             int bytes = byteBitmap.Length;
 
-            if(bytes<MAX_DATA)
+            if (bytes < MAX_DATA)
                 sendSocket.SendTo(byteBitmap, SocketFlags.None, destinationHost);
         }
 
