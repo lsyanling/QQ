@@ -248,9 +248,6 @@ namespace QQ
                     // 关闭视频窗口
                     if (Cv2.GetWindowProperty(VIDEO_WINDOW_NAME, 0) == -1)
                     {
-                        // 修改控件可用性
-                        this.SendVideoButton.Enabled = true;
-
                         // 发送停止信号报文
                         this.udpObject.SendStopVideo(this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
 
@@ -263,7 +260,7 @@ namespace QQ
                 catch
                 {
                     // 修改控件可用性
-                    this.SendVideoButton.Enabled = true;
+                    this.SendVideoButtonEnabledCallback();
 
                     // 发送停止信号报文
                     this.udpObject.SendStopVideo(this.tcpObject.DestinationHost.Address.ToString(), this.tcpObject.DestinationUdpPort);
@@ -492,6 +489,21 @@ namespace QQ
                     // 意味着客户端结束了视频
                     this.videoWindow.Close();
                 }
+            }
+        }
+
+        // 专门为了这个写一个回调好吗
+        public void SendVideoButtonEnabledCallback()
+        {
+            // 交还主线程调用
+            if (this.InvokeRequired)
+            {
+                Callback d = new Callback(SendVideoButtonEnabledCallback);
+                this.Invoke(d);
+            }
+            else
+            {
+                this.SendVideoButton.Enabled = true;
             }
         }
     }
