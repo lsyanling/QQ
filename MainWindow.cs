@@ -37,8 +37,11 @@ namespace QQ
         public Window videoWindow;
 
         // 当前是服务端还是客户端
-        public enum ServerClientStatus { Server, Client };
+        public enum ServerClientStatus { Server, Client, Null };
         public ServerClientStatus serverClientStatus;
+
+        // 连接的客户端数量
+        public int clients = 0;
 
         // -----------------------------------------------------------------------------
         // 以下为构造方法和初始化方法
@@ -55,6 +58,9 @@ namespace QQ
 
             // 前端 初始化控件可用性
             InitializeComponentAvailable();
+
+            // 全局 初始化数据
+            this.serverClientStatus = ServerClientStatus.Null;
 
             // 后端 这里开始允许启动服务器
             this.tcpObject = new TCPClass(localConfig);
@@ -83,6 +89,8 @@ namespace QQ
             this.SendVideoButton.Enabled = false;
             this.DisConnectButton.Enabled = false;
             this.StopServerButton.Enabled = false;
+
+            this.serverClientStatus = ServerClientStatus.Null;
         }
 
         // -----------------------------------------------------------------------------
@@ -118,6 +126,12 @@ namespace QQ
         {
             // 修改控件可用性
             DisConnectComponentAvailable();
+
+            // 修改监视数据
+            this.serverClientStatus = ServerClientStatus.Null;
+
+            // 后端断开连接
+            this.tcpObject.Disconnet();
         }
 
         // 启动本机服务器事件
@@ -135,11 +149,14 @@ namespace QQ
             this.ConnectLogTextBoxReadOnly.Text = "本机服务器已在运行";
             this.ServerLogTextBoxReadOnly.Text = "服务器已启动 等待连接";
 
+            // 修改监视数据
+            this.serverClientStatus = ServerClientStatus.Server;
+
             // 消息提示
             MessageBox.Show("已启动本机服务器", "提示", MessageBoxButtons.OK);
 
             // 后端启动本机服务器监听 这里暂用客户端收到广播消息的回调代替服务端收到消息的同步回调
-            this.tcpObject.ListenAndAccept(this.udpObject.LocalHost.Port, AcceptSuccessCallback, BroadcastMessageReceiveCallback);
+            this.tcpObject.ListenAndAccept(this.udpObject.LocalHost.Port, AcceptSuccessCallback, BroadcastMessageReceiveCallback, ClientDisconnectCallback);
         }
 
         // 关闭本机服务器事件
@@ -153,8 +170,11 @@ namespace QQ
             this.RunServerButton.Enabled = true;
             this.StopServerButton.Enabled = false;
 
-            // 后端关闭本机服务器
+            // 修改监视数据
+            this.serverClientStatus = ServerClientStatus.Null;
 
+            // 后端关闭本机服务器
+            this.tcpObject.StopServer();
         }
 
         // 发送消息事件
@@ -162,8 +182,22 @@ namespace QQ
         {
             string message = this.MessageTextBox.Text;
 
-            // 后端发送消息
-            this.tcpObject.MessageSend(message);
+            // 客户端处理
+            if (this.serverClientStatus == ServerClientStatus.Client)
+            {
+                // 后端发送消息
+                this.tcpObject.MessageSend(message);
+            }
+            // 服务端处理
+            else if (this.serverClientStatus == ServerClientStatus.Server)
+            {
+                // 消息预处理
+                message = "\r\n[服务器广播消息]\r\n" + message + "\r\n";
+                // 后端广播消息
+                this.tcpObject.MessageBroadcast(message);
+                // 服务器前端处理 这里也是直接借用客户端收到消息的回调
+                this.BroadcastMessageReceiveCallback(message);
+            }
 
             // 清空消息盒子
             this.MessageTextBox.Text = "";
@@ -285,9 +319,6 @@ namespace QQ
             // 修改状态标签
             this.ConnectLogTextBoxReadOnly.Text = "已断开连接";
             this.ServerLogTextBoxReadOnly.Text = "服务器未启动";
-
-            // 修改CS状态
-            this.serverClientStatus = ServerClientStatus.Client;
         }
 
         // 本机服务器建立连接的控件状态
@@ -297,14 +328,43 @@ namespace QQ
 
             this.MessageTextBox.Enabled = true;
             this.SendMessageButton.Enabled = true;
-            this.SendFileButton.Enabled = true;
-            this.SendVideoButton.Enabled = true;
+            // 服务端不让发文件
+            this.SendFileButton.Enabled = false;
+            // 服务端不让发信息
+            this.SendVideoButton.Enabled = false;
+
+            this.clients++;
 
             // 修改状态标签
-            this.ServerLogTextBoxReadOnly.Text = "一个客户端已连接";
+            this.ServerLogTextBoxReadOnly.Text = clients.ToString() + "个客户端已连接";
 
             // 修改CS状态
             this.serverClientStatus = ServerClientStatus.Server;
+        }
+
+        // 一个客户断开连接的控件状态
+        public void ClientDisconnectComponentAvailable()
+        {
+            // 更新客户数
+            this.clients--;
+
+            if (this.clients > 0)
+            {
+                // 状态标签
+                this.ServerLogTextBoxReadOnly.Text = this.clients.ToString() + "个客户端已连接";
+            }
+            else if(this.clients == 0)
+            {
+                // 修改控件可用性
+                this.DestinationIPTextBox.Enabled = false;
+                this.DestinationPortTextBox.Enabled = false;
+
+                this.ConnectButton.Enabled = false;
+                this.SendMessageButton.Enabled = false;
+
+                // 状态标签
+                this.ServerLogTextBoxReadOnly.Text = "服务器已启动 等待连接";
+            }
         }
 
         // -----------------------------------------------------------------------------
@@ -346,6 +406,10 @@ namespace QQ
             {
                 // 修改控件可用性
                 RespondSuccessComponentAvailable();
+
+                // 修改监视状态
+                this.serverClientStatus = ServerClientStatus.Client;
+
                 // 消息提示
                 MessageBox.Show("连接成功\r\n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
             }
@@ -362,15 +426,6 @@ namespace QQ
             }
             else
             {
-                //// 向流盒子中添加TextBox
-                //TextBox textbox = new TextBox();
-                //textbox.Text = data;
-                //textbox.Multiline = true;   // 允许换行
-                //textbox.ScrollBars = ScrollBars.Vertical;
-                //textbox.ReadOnly = true;    // 消息记录只读
-                //textbox.Size = new Size(this.MessagesFlowLayoutPanel.Width, 300);
-                //this.MessagesFlowLayoutPanel.Controls.Add(textbox);
-
                 this.HistoryMessageRichTextBox.Text += data;
             }
         }
@@ -379,20 +434,38 @@ namespace QQ
         // 以下为本机服务器相关的底层回调
 
         // 服务器建立连接成功的回调
-        public void AcceptSuccessCallback(string destinationIP)
+        public void AcceptSuccessCallback(string client)
         {
             // 交还主线程调用
             if (this.InvokeRequired)
             {
                 CallbackString d = new CallbackString(AcceptSuccessCallback);
-                this.Invoke(d, destinationIP);
+                this.Invoke(d, client);
             }
             else
             {
                 // 修改控件可用性
                 AcceptSuccessComponentAvailable();
                 // 消息提示
-                MessageBox.Show($"来自{destinationIP}的一个连接已建立 \r\n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
+                MessageBox.Show($"来自{client}的一个连接已建立 \r\n在关闭窗口之前 应先断开连接", "提示", MessageBoxButtons.OK);
+            }
+        }
+
+        // 客户掉线的回调
+        public void ClientDisconnectCallback(string client)
+        {
+            // 交还主线程调用
+            if (this.InvokeRequired)
+            {
+                CallbackString d = new CallbackString(ClientDisconnectCallback);
+                this.Invoke(d, client);
+            }
+            else
+            {
+                // 修改控件可用性
+                ClientDisconnectComponentAvailable();
+                // 消息提示
+                MessageBox.Show($"与{client}的连接已断开", "提示", MessageBoxButtons.OK);
             }
         }
 
@@ -559,10 +632,10 @@ namespace QQ
         // -----------------------------------------------------------------------------
         // 以下为连接相关信息
 
-        // 本机服务端的 对方主机
-        public Dictionary<string, IPEndPoint> AllServerDestinationHost;
-        // 本机服务端接受请求的 对方套接字
+        // 本机服务端保持连接的 对方套接字
         public Dictionary<string, Socket> AllServerDestinationSocket;
+        // 本机服务端需要删除的 对方套接字
+        public Dictionary<string, Socket> AllDestinationSocketNeedDelete;
         // 本机服务端的每个连接的 对方UDP接收端口
         public Dictionary<string, int> AllServerDestinationUdpPort;
 
@@ -576,6 +649,10 @@ namespace QQ
         // 本机客户端收到的 服务端UDP端口
         public int DestinationUdpPort;
 
+        // 删除连接时的锁
+        public object DeleteSocketLock = new object();
+
+        // 应用层协议相关
         public const int DATA_HEAD = 9;
 
         // -----------------------------------------------------------------------------
@@ -597,6 +674,7 @@ namespace QQ
         public CallbackString AcceptSuccessCallback;
         public CallbackString ServerMessageSyncCallback;
         public CallbackString BroadcastMessageReceiveCallback;
+        public CallbackString ClientDisconnectCallback;
 
         public TCPClass(LocalServerConfig localServerConfig_Parameter)
         {
@@ -604,8 +682,8 @@ namespace QQ
             this.localServerConfig = localServerConfig_Parameter;
 
             // 初始化字典
-            this.AllServerDestinationHost = new Dictionary<string, IPEndPoint>();
             this.AllServerDestinationSocket = new Dictionary<string, Socket>();
+            this.AllDestinationSocketNeedDelete = new Dictionary<string, Socket>();
             this.AllServerDestinationUdpPort = new Dictionary<string, int>();
         }
 
@@ -674,6 +752,19 @@ namespace QQ
                 // 回调 超时或连接失败
                 this.NoRespondCallback();
             }
+        }
+
+        // 断开与服务器的连接
+        public void Disconnet()
+        {
+            // 释放客户端套接字
+            this.LocalSocket.Dispose();
+
+            // 重启套接字
+            this.LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPEndPoint newLocalHost = new IPEndPoint(IPAddress.Parse(this.localServerConfig.LocalIP), 0);
+            this.LocalSocket.Bind(newLocalHost);
+
         }
 
         // 服务器广播消息接收线程
@@ -785,7 +876,8 @@ namespace QQ
         // 以下为本机服务端线程相关
 
         // 开启本机监听和等待连接线程
-        public void ListenAndAccept(int udpPortSource, CallbackString acceptSuccessCallback, CallbackString serverMessageSyncCallback)
+        public void ListenAndAccept(int udpPortSource, CallbackString acceptSuccessCallback,
+            CallbackString serverMessageSyncCallback, CallbackString clientDisconnectCallback)
         {
             // 监听
             this.localServerConfig.LocalSocket.Listen(1);
@@ -796,11 +888,13 @@ namespace QQ
 
             this.AcceptSuccessCallback = acceptSuccessCallback;
             this.ServerMessageSyncCallback = serverMessageSyncCallback;
+            this.ClientDisconnectCallback = clientDisconnectCallback;
 
             // 等待连接线程
             ThreadStart acceptThreadStart = AcceptThreadStart;
             this.ListenAndAcceptThread = new Thread(acceptThreadStart);
             this.ListenAndAcceptThread.Start();
+
         }
 
         // 等待连接线程
@@ -820,7 +914,6 @@ namespace QQ
                     string key = aServerDestinationAddress + ":" + aServerDestinationPort.ToString();
 
                     // 存入字典
-                    this.AllServerDestinationHost.Add(key, aServerDestinationHost);
                     this.AllServerDestinationSocket.Add(key, aServerDestinationSocket);
 
                     // 这一段阻塞 客户端和服务端都需要知道对方的UDP端口
@@ -850,7 +943,7 @@ namespace QQ
             }
             catch
             {
-                MessageBox.Show("错误代码2333", "提示", MessageBoxButtons.OK);
+                MessageBox.Show("错误代码2333，服务器已爆炸", "提示", MessageBoxButtons.OK);
             }
         }
 
@@ -913,10 +1006,8 @@ namespace QQ
 
                         // 广播的消息 客户端无需再处理
                         string message = messageHead + data + "\r\n";
-
-                        // 消息广播线程
-                        ParameterizedThreadStart messageBroadcastThreadStart = MessageBroadcastThreadStart;
-                        new Thread(messageBroadcastThreadStart).Start(message);
+                        // 广播消息
+                        MessageBroadcast(message);
 
                         // 回调 消息上交服务器主机的前端
                         this.ServerMessageSyncCallback(message);
@@ -930,8 +1021,34 @@ namespace QQ
             }
             catch
             {
+                // 删除时上锁
+                lock (DeleteSocketLock)
+                {
+                    // 连接已断开 删除该连接
+                    if (!((Socket)socket).Connected)
+                    {
+                        // 从字典中清除
+                        string key = remoteEndPoint.Address.ToString() + ":" + remoteEndPoint.Port.ToString();
+                        this.AllServerDestinationSocket.Remove(key);
+                        this.AllServerDestinationUdpPort.Remove(remoteEndPoint.Address.ToString());
+
+                        // 回调 通知上层一个客户已掉线
+                        this.ClientDisconnectCallback(key);
+
+                        // 释放套接字
+                        ((Socket)socket).Dispose();
+                    }
+                }
 
             }
+        }
+
+        // 消息广播
+        public void MessageBroadcast(string message)
+        {
+            // 消息广播线程
+            ParameterizedThreadStart messageBroadcastThreadStart = MessageBroadcastThreadStart;
+            new Thread(messageBroadcastThreadStart).Start(message);
         }
 
         // 消息广播线程
@@ -959,15 +1076,77 @@ namespace QQ
                 }
                 catch
                 {
-                    // 善后工作 此处应有锁
+                    // 善后工作
+                    this.AllDestinationSocketNeedDelete.Add(keyValuePair.Key, keyValuePair.Value);
+                }
+            }
+
+            // 尽量避免上锁
+            if (this.AllDestinationSocketNeedDelete.Count != 0)
+            {
+                // 删除时上锁
+                lock (DeleteSocketLock)
+                {
+                    // 删除已断开的连接
+                    foreach (var keyValuePair in this.AllDestinationSocketNeedDelete)
+                    {
+                        // 从字典清除
+                        this.AllServerDestinationSocket.Remove(keyValuePair.Key);
+
+                        // 释放套接字
+                        keyValuePair.Value.Dispose();
+                    }
+
+                    // 清空待删除字典
+                    this.AllDestinationSocketNeedDelete.Clear();
                 }
             }
         }
 
+        // 关闭服务器
+        public void StopServer()
+        {
+            // 记录欢迎套接字的端口
+            int LocalPort = this.localServerConfig.LocalPort;
 
+            // 关闭欢迎套接字
+            this.localServerConfig.LocalSocket.Close();
+
+            // 挂起
+            Thread.Sleep(100);
+
+            // 删除时上锁
+            lock (DeleteSocketLock)
+            {
+                // 尝试重启套接字
+                Socket newSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                this.localServerConfig.LocalSocket = newSocket;
+                IPEndPoint newLocalHost = new IPEndPoint(this.localServerConfig.LocalHost.Address, LocalPort);
+                newSocket.Bind(newLocalHost);
+
+                // 关闭所有连接套接字
+                foreach (var keyValuePair in this.AllServerDestinationSocket)
+                {
+                    try
+                    {
+                        keyValuePair.Value.Close();
+                        keyValuePair.Value.Dispose();
+                    }
+                    catch
+                    {
+                        // 善后工作 此处应有锁
+                        keyValuePair.Value.Dispose();
+                    }
+                }
+
+                // 清空字典
+                this.AllServerDestinationSocket.Clear();
+                this.AllServerDestinationUdpPort.Clear();
+            }
+        }
     }
 
-    // UDP的接收窗口应仅在建立连接后或启动本机服务器后才开启
+    // UDP的接收窗口立即开启
     public class UDPClass
     {
         // 本机服务端
