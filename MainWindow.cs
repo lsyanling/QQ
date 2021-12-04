@@ -68,6 +68,10 @@ namespace QQ
             // 后端 这里开始允许接收视频流
             this.udpObject = new UDPClass(localConfig);
             this.udpObject.StartReceive(ServerReceiveMatCallback);
+
+            // 这行极低内聚极高耦合 千万不要动！
+            // 至少应该写成TCPClass的一个方法 我懒得动了 希望后来者写
+            this.tcpObject.udpPort = this.udpObject.LocalHost.Port;
         }
 
         // 初始化本机IP和应用程序端口号
@@ -156,7 +160,7 @@ namespace QQ
             MessageBox.Show("已启动本机服务器", "提示", MessageBoxButtons.OK);
 
             // 后端启动本机服务器监听 这里暂用客户端收到广播消息的回调代替服务端收到消息的同步回调
-            this.tcpObject.ListenAndAccept(this.udpObject.LocalHost.Port, AcceptSuccessCallback, BroadcastMessageReceiveCallback, ClientDisconnectCallback);
+            this.tcpObject.ListenAndAccept(AcceptSuccessCallback, BroadcastMessageReceiveCallback, ClientDisconnectCallback);
         }
 
         // 关闭本机服务器事件
@@ -350,7 +354,7 @@ namespace QQ
                 // 状态标签
                 this.ServerLogTextBoxReadOnly.Text = this.clients.ToString() + "个客户端已连接";
             }
-            else if(this.clients == 0)
+            else if (this.clients == 0)
             {
                 // 修改控件可用性
                 this.DestinationIPTextBox.Enabled = false;
@@ -852,7 +856,8 @@ namespace QQ
         public void MessageSend(string data)
         {
             // 编码
-            int dataLength = data.Length;
+            byte[] dataByte = Encoding.UTF8.GetBytes(data);
+            int dataLength = dataByte.Length;
             string dataLengthString = dataLength.ToString();
             int needZero = DATA_HEAD - dataLengthString.Length - 1;
             string zero = "";
@@ -888,16 +893,13 @@ namespace QQ
         // 以下为本机服务端线程相关
 
         // 开启本机监听和等待连接线程
-        public void ListenAndAccept(int udpPortSource, CallbackString acceptSuccessCallback,
+        public void ListenAndAccept(CallbackString acceptSuccessCallback, 
             CallbackString serverMessageSyncCallback, CallbackString clientDisconnectCallback)
         {
             // 监听
             this.localServerConfig.LocalSocket.Listen(1);
 
             // 数据迁移
-            // 这行低内聚高耦合 千万不要动
-            this.udpPort = udpPortSource;
-
             this.AcceptSuccessCallback = acceptSuccessCallback;
             this.ServerMessageSyncCallback = serverMessageSyncCallback;
             this.ClientDisconnectCallback = clientDisconnectCallback;
@@ -942,7 +944,8 @@ namespace QQ
                         {
                             bytes = aServerDestinationSocket.Receive(udpPortByte);
                         }
-                        this.AllServerDestinationUdpPort.Add(aServerDestinationAddress, BitConverter.ToInt32(udpPortByte, 0));
+                        int udpPortInt = BitConverter.ToInt32(udpPortByte, 0);
+                        this.AllServerDestinationUdpPort.Add(aServerDestinationAddress + ":" + udpPortInt.ToString(), udpPortInt);
                     }
 
                     // 消息接收线程
@@ -1042,7 +1045,7 @@ namespace QQ
                         // 从字典中清除
                         string key = remoteEndPoint.Address.ToString() + ":" + remoteEndPoint.Port.ToString();
                         this.AllServerDestinationSocket.Remove(key);
-                        this.AllServerDestinationUdpPort.Remove(remoteEndPoint.Address.ToString());
+                        this.AllServerDestinationUdpPort.Remove(key);
 
                         // 回调 通知上层一个客户已掉线
                         this.ClientDisconnectCallback(key);
