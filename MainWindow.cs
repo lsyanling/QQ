@@ -893,7 +893,7 @@ namespace QQ
         // 以下为本机服务端线程相关
 
         // 开启本机监听和等待连接线程
-        public void ListenAndAccept(CallbackString acceptSuccessCallback, 
+        public void ListenAndAccept(CallbackString acceptSuccessCallback,
             CallbackString serverMessageSyncCallback, CallbackString clientDisconnectCallback)
         {
             // 监听
@@ -1071,7 +1071,8 @@ namespace QQ
         {
             // 编码
             string data = (string)sourceData;
-            int dataLength = data.Length;
+            byte[] dataByte = Encoding.UTF8.GetBytes(data);
+            int dataLength = dataByte.Length;
             string dataLengthString = dataLength.ToString();
             int needZero = DATA_HEAD - dataLengthString.Length - 1;
             string zero = "";
